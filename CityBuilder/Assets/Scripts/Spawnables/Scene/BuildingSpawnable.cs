@@ -12,7 +12,7 @@ namespace CityBuilder.Spawnables.Scene
         
         public override async UniTask<bool> Spawn(int id)
         {
-            if (_runtimeDataProvider.UnitsModelStorage.TryGetItem(id, out var model))
+            if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
             {
                 var modelInstantiateProcess = InstantiateAsync(model.Spawnables.Random(), transform);
                 await modelInstantiateProcess;
