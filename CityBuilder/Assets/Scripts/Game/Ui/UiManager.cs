@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CityBuilder.DataStorage;
 using UnityEngine;
@@ -19,6 +20,17 @@ namespace CityBuilder.Game.Ui
                 : availableCardsIds.ToList();
 
             _deckController.SetAvailableCards(_availableCardsIds);
+            _deckController.CardClicked += OnCardClicked;
+        }
+
+        private void OnDestroy()
+        {
+            _deckController.CardClicked -= OnCardClicked;
+        }
+
+        private void OnCardClicked(int id)
+        {
+            Debug.LogError($"card with id {id} clicked");
         }
     }
 }

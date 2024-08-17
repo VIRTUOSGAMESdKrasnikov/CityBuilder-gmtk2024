@@ -22,7 +22,8 @@ namespace CityBuilder.Spawnables.UI
         {
             _cardTurnController.OpenBackFace(true);
             _selectableCard.CardClicked += OnCardClicked;
-            
+            _selectableCard.SetId(id);
+
             return true;
         }
 

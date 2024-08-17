@@ -12,6 +12,8 @@ namespace CityBuilder.Game.Ui
 {
     public class DeckController : MonoBehaviour
     {
+        public event Action<int> CardClicked; 
+        
         [SerializeField] private Transform _pileParent;
         [SerializeField] private Transform _activeCardsParent;
 
@@ -31,19 +33,37 @@ namespace CityBuilder.Game.Ui
         
         private async void Start()
         {
-            var spawnedItems = await _cardsSpawner.Spawn(_availableCardsIds);
+            _spawnedCards = await _cardsSpawner.Spawn(_availableCardsIds);
 
             // todo add pile position algorithm
             // like cards would be placed with offset
-            foreach (var card in spawnedItems)
+            foreach (var card in _spawnedCards)
             {
                 card.transform.SetParent(_pileParent);
 
                 card.transform.localPosition = Vector3.zero;
                 card.transform.localScale = Vector3.one;
                 card.transform.localRotation = Quaternion.identity;
+            }
 
+            int i = 0;
+
+            foreach (var card in _spawnedCards)
+            {
+                if (i >= 3)
+                {
+                    break;
+                }
+
+                card.transform.SetParent(_activeCardsParent);
+
+                card.transform.localScale = Vector3.one;
+                card.transform.localRotation = Quaternion.identity;
+                
+                // todo add auto turn when card lands on active table
+                
                 card.CardClicked += OnCardClicked;
+                i++;
             }
         }
 
@@ -62,7 +82,7 @@ namespace CityBuilder.Game.Ui
 
         private void OnCardClicked(int id)
         {
-            Debug.LogError($"card with id {id} clicked");
+            CardClicked?.Invoke(id);
         }
     }
 }

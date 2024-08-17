@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardTurnController: {fileID: 4248613630009486361}
+  _selectableCard: {fileID: -4720426694103931019}
   _icon: {fileID: 6920862143736602}
   _name: {fileID: 3655758716217891443}
   _description: {fileID: 4115956116528533035}
