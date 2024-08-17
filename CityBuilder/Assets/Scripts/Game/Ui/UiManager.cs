@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CityBuilder.DataStorage;
 using UnityEngine;
+using Zenject;
 
 namespace CityBuilder.Game.Ui
 {
@@ -10,6 +10,8 @@ namespace CityBuilder.Game.Ui
     {
         [SerializeField] private DummyData _dummyData;
         [SerializeField] private DeckController _deckController;
+
+        [Inject] private GameManager _gameManager;
 
         private List<int> _availableCardsIds;
         
@@ -30,7 +32,8 @@ namespace CityBuilder.Game.Ui
 
         private void OnCardClicked(int id)
         {
-            Debug.LogError($"card with id {id} clicked");
+            _gameManager.OnUiCardClicked(id);
+            Debug.Log($"card with id {id} clicked");
         }
     }
 }
