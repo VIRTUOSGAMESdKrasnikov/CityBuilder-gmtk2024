@@ -1,7 +1,4 @@
-﻿using CityBuilder.DataStorage;
-using CityBuilder.DataStorage.Storageables;
-using CityBuilder.Interfaces;
-using CityBuilder.Spawners;
+﻿using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -9,20 +6,12 @@ namespace CityBuilder.Game
 {
     public class GameplayLoader : MonoBehaviour
     {
-        [Inject] private DiContainer _container;
-        [Inject] private IRuntimeDataProvider _runtimeDataProvider;
-        
-        private ISpawner<SpawnableDataStorage, SpawnableStorageable> _buildingSpawner;
+        [Inject] private UiManager _uiManager;
 
         private void Awake()
         {
-            _buildingSpawner = new SpawnerBase();
-            _buildingSpawner.Init(_runtimeDataProvider.BuildingsStorage, _container);
-        }
-
-        private async void Start()
-        {
-            await _buildingSpawner.Spawn(new[] { 0, 1, 2 });
+            // todo here we get list of player cards from previous scene and pass them to ui manager
+            _uiManager.Init(Enumerable.Empty<int>());
         }
     }
 }
