@@ -14,5 +14,10 @@ namespace CityBuilder.Game
             // todo here we get list of player cards from previous scene and pass them to ui manager
             _uiManager.Init(Enumerable.Empty<int>());
         }
+
+        private void OnDestroy()
+        {
+            _uiManager.Dispose();
+        }
     }
 }

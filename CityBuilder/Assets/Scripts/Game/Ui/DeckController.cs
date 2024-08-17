@@ -12,8 +12,6 @@ namespace CityBuilder.Game.Ui
 {
     public class DeckController : MonoBehaviour
     {
-        public event Action<int> CardClicked; 
-        
         [SerializeField] private Transform _pileParent;
         [SerializeField] private Transform _activeCardsParent;
 
@@ -62,27 +60,13 @@ namespace CityBuilder.Game.Ui
                 
                 // todo add auto turn when card lands on active table
                 
-                card.CardClicked += OnCardClicked;
                 i++;
-            }
-        }
-
-        private void OnDestroy()
-        {
-            foreach (var card in _spawnedCards)
-            {
-                card.CardClicked -= OnCardClicked;
             }
         }
 
         public void SetAvailableCards(List<int> availableCardsIds)
         {
             _availableCardsIds = availableCardsIds;
-        }
-
-        private void OnCardClicked(int id)
-        {
-            CardClicked?.Invoke(id);
         }
     }
 }

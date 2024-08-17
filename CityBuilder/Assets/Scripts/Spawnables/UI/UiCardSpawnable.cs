@@ -9,8 +9,6 @@ namespace CityBuilder.Spawnables.UI
 {
     public class UiCardSpawnable : UiSpawnable
     {
-        public event Action<int> CardClicked;
-        
         [SerializeField] private CardTurnController _cardTurnController;
         [SerializeField] private SelectableCard _selectableCard;
         
@@ -21,20 +19,9 @@ namespace CityBuilder.Spawnables.UI
         public override async UniTask<bool> Spawn(int id)
         {
             _cardTurnController.OpenBackFace(true);
-            _selectableCard.CardClicked += OnCardClicked;
             _selectableCard.SetId(id);
 
             return true;
-        }
-
-        private void OnDestroy()
-        {
-            _selectableCard.CardClicked -= OnCardClicked;
-        }
-
-        private void OnCardClicked(int id)
-        {
-            CardClicked?.Invoke(id);
         }
     }
 }
