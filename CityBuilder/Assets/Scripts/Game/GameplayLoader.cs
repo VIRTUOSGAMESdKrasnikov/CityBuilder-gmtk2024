@@ -17,7 +17,7 @@ namespace CityBuilder.Game
         private void Awake()
         {
             _buildingSpawner = new SpawnerBase();
-            _buildingSpawner.Init(_runtimeDataProvider.UnitStorage, _container);
+            _buildingSpawner.Init(_runtimeDataProvider.BuildingsStorage, _container);
         }
 
         private async void Start()

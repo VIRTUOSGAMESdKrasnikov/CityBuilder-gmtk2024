@@ -4,7 +4,8 @@ namespace CityBuilder.Interfaces
 {
     public interface IRuntimeDataProvider
     {
-        public SpawnableDataStorage UnitStorage { get; }
-        public ModelDataStorage UnitsModelStorage { get; }
+        public SpawnableDataStorage BuildingsStorage { get; }
+        public ModelDataStorage ModelStorage { get; }
+        public UiCardsStorage UiCardsStorage { get; }
     }
 }
