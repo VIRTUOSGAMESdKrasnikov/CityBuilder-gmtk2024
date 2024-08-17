@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CityBuilder.Core.EventBuses;
+using CityBuilder.Core.EventBuses.Bindings;
+using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.DataStorage;
 using UnityEngine;
 using Zenject;
@@ -15,25 +18,31 @@ namespace CityBuilder.Game.Ui
 
         private List<int> _availableCardsIds;
         
+        private EventBinding<CardClickedEvent> _cardClickedEvent;
+        
         public void Init(IEnumerable<int> availableCardsIds)
         {
+            var builder = new EventBinding<CardClickedEvent>.Builder();
+            _cardClickedEvent = builder.WithAction(OnCardClicked).Build();
+
+            EventBus<CardClickedEvent>.Subscribe(_cardClickedEvent);
+
             _availableCardsIds = (availableCardsIds == null || !availableCardsIds.Any())
                 ? _dummyData.DefaultIds
                 : availableCardsIds.ToList();
 
             _deckController.SetAvailableCards(_availableCardsIds);
-            _deckController.CardClicked += OnCardClicked;
         }
 
-        private void OnDestroy()
+        public void Dispose()
         {
-            _deckController.CardClicked -= OnCardClicked;
+            EventBus<CardClickedEvent>.Unsubscribe(_cardClickedEvent);
         }
-
-        private void OnCardClicked(int id)
+        
+        private void OnCardClicked(CardClickedEvent @event)
         {
-            _gameManager.OnUiCardClicked(id);
-            Debug.Log($"card with id {id} clicked");
+            _gameManager.OnUiCardClicked(@event.ClickedId);
+            Debug.Log($"card with id {@event.ClickedId} clicked");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CityBuilder.Core.EventBuses;
+using CityBuilder.Core.EventBuses.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,8 +7,6 @@ namespace CityBuilder.Game.Ui.CardsVisuals
 {
     public class SelectableCard : MonoBehaviour, IPointerDownHandler
     {
-        public event Action<int> CardClicked;
-
         private int _id;
 
         public void SetId(int id)
@@ -17,7 +16,8 @@ namespace CityBuilder.Game.Ui.CardsVisuals
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            CardClicked?.Invoke(_id);
+            var cardClickedEvent = new CardClickedEvent(_id);
+            EventBus<CardClickedEvent>.Publish(cardClickedEvent);
         }
     }
 }
