@@ -1,27 +1,23 @@
-﻿using DG.Tweening;
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CityBuilder.Game.Ui.CardsVisuals
 {
-    public class SelectableCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+    public class SelectableCard : MonoBehaviour, IPointerDownHandler
     {
-        [SerializeField] private CardTurnController _cardTurnController;
-        
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            transform.DOScale(Vector3.one * 1.2f, 0.5f);
-            _cardTurnController.OpenFrontFace();
-        }
+        public event Action<int> CardClicked;
 
-        public void OnPointerExit(PointerEventData eventData)
+        private int _id;
+
+        public void SetId(int id)
         {
-            transform.DOScale(Vector3.one, 0.5f);
-            _cardTurnController.OpenBackFace();
+            _id = id;
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            CardClicked?.Invoke(_id);
         }
     }
 }

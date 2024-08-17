@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CityBuilder.DataStorage;
 using CityBuilder.DataStorage.Storageables;
 using CityBuilder.Interfaces;
@@ -7,7 +8,7 @@ using CityBuilder.Spawners;
 using UnityEngine;
 using Zenject;
 
-namespace CityBuilder.Game.Deck
+namespace CityBuilder.Game.Ui
 {
     public class DeckController : MonoBehaviour
     {
@@ -20,6 +21,7 @@ namespace CityBuilder.Game.Deck
         private ISpawner<UiCardsStorage, UiCardStorageable, UiCardSpawnable> _cardsSpawner;
 
         private List<int> _availableCardsIds;
+        private IEnumerable<UiCardSpawnable> _spawnedCards;
         
         private void Awake()
         {
@@ -40,12 +42,27 @@ namespace CityBuilder.Game.Deck
                 card.transform.localPosition = Vector3.zero;
                 card.transform.localScale = Vector3.one;
                 card.transform.localRotation = Quaternion.identity;
+
+                card.CardClicked += OnCardClicked;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var card in _spawnedCards)
+            {
+                card.CardClicked -= OnCardClicked;
             }
         }
 
         public void SetAvailableCards(List<int> availableCardsIds)
         {
             _availableCardsIds = availableCardsIds;
+        }
+
+        private void OnCardClicked(int id)
+        {
+            Debug.LogError($"card with id {id} clicked");
         }
     }
 }

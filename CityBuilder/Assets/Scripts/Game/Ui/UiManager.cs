@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CityBuilder.DataStorage;
-using CityBuilder.Game.Deck;
 using UnityEngine;
 
 namespace CityBuilder.Game.Ui

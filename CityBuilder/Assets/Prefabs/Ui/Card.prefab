@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2254037608901733437}
   - component: {fileID: 2101608029182213551}
+  - component: {fileID: 4248613630009486361}
   - component: {fileID: 2130360068427536091}
   - component: {fileID: -4720426694103931019}
-  - component: {fileID: 4248613630009486361}
+  - component: {fileID: -61267073637201245}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -57,6 +58,20 @@ MonoBehaviour:
   _icon: {fileID: 6920862143736602}
   _name: {fileID: 3655758716217891443}
   _description: {fileID: 4115956116528533035}
+--- !u!114 &4248613630009486361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94925771872949979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb78640bf38649cb871947b3de1aa25f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _front: {fileID: 7375418682878012015}
+  _back: {fileID: 5577203985266958510}
 --- !u!114 &2130360068427536091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,8 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4822952f9c734abe897209e802c02f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardTurnController: {fileID: 4248613630009486361}
---- !u!114 &4248613630009486361
+--- !u!114 &-61267073637201245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,11 +113,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 94925771872949979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb78640bf38649cb871947b3de1aa25f, type: 3}
+  m_Script: {fileID: 11500000, guid: eeae9d2c0b65490ea02dcf46fc79ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _front: {fileID: 7375418682878012015}
-  _back: {fileID: 5577203985266958510}
+  _cardTurnController: {fileID: 4248613630009486361}
 --- !u!1 &156388650530900042
 GameObject:
   m_ObjectHideFlags: 0
