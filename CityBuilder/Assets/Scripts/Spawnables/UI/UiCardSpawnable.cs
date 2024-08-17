@@ -1,4 +1,5 @@
-﻿using CityBuilder.Interfaces;
+﻿using CityBuilder.Game.Ui.CardsVisuals;
+using CityBuilder.Interfaces;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -10,9 +11,7 @@ namespace CityBuilder.Spawnables.UI
     public class UiCardSpawnable : UiSpawnable
     {
         [Inject] private IRuntimeDataProvider _runtimeDataProvider;
-
-        [SerializeField] private GameObject _front;
-        [SerializeField] private GameObject _back;
+        [SerializeField] private CardTurnController _cardTurnController;
         
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _name;
@@ -20,8 +19,7 @@ namespace CityBuilder.Spawnables.UI
         
         public override async UniTask<bool> Spawn(int id)
         {
-            _front.SetActive(false);
-            _back.SetActive(true);
+            _cardTurnController.OpenBackFace(true);
             return true;
         }
     }

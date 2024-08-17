@@ -4,7 +4,7 @@ using CityBuilder.DataStorage;
 using CityBuilder.Game.Deck;
 using UnityEngine;
 
-namespace CityBuilder.Game
+namespace CityBuilder.Game.Ui
 {
     public class UiManager : MonoBehaviour
     {
