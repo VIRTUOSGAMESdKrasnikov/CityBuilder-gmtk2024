@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _storageables:
   - <ID>k__BackingField: 0
-    <Spawnable>k__BackingField: {fileID: 0}
+    <Spawnable>k__BackingField: {fileID: 2561498376866555865, guid: 43f58477b51d74d44ab5f917a0e73714, type: 3}
+  - <ID>k__BackingField: 1
+    <Spawnable>k__BackingField: {fileID: 4256060668463415268, guid: c14dc5d115f38be43af80ca02759c362, type: 3}
+  - <ID>k__BackingField: 2
+    <Spawnable>k__BackingField: {fileID: 7855323004802212016, guid: 8fbaa893147551d4d8800db6f6a44fd7, type: 3}

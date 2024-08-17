@@ -9,7 +9,7 @@ using Zenject;
 
 namespace CityBuilder.Spawners
 {
-    public class BuildingsSpawner : ISpawner<SpawnableDataStorage, SpawnableStorageable, SceneSpawnable>
+    public class BuildingsSpawner : ISpawner<SpawnableDataStorage, SpawnableStorageable, BuildingSpawnable>
     {
         private SpawnableDataStorage _spawnableStorage;
         private DiContainer _container;
@@ -20,9 +20,9 @@ namespace CityBuilder.Spawners
             _container = container;
         }
 
-        public async UniTask<IEnumerable<SceneSpawnable>> Spawn(IEnumerable<int> requestedIds)
+        public async UniTask<IEnumerable<BuildingSpawnable>> Spawn(IEnumerable<int> requestedIds)
         {
-            var instantiatedElements = new List<SceneSpawnable>();
+            var instantiatedElements = new List<BuildingSpawnable>();
             
             foreach (var id in requestedIds)
             {
@@ -30,7 +30,7 @@ namespace CityBuilder.Spawners
                 {
                     var instantiated = _container.InstantiatePrefab(storageable.Spawnable).GetComponent<ISpawnable>();
                     await instantiated.Spawn(id);
-                    instantiatedElements.Add(instantiated as SceneSpawnable);
+                    instantiatedElements.Add(instantiated as BuildingSpawnable);
                 }
                 else
                 {

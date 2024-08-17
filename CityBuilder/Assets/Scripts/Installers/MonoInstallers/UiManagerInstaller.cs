@@ -1,4 +1,4 @@
-﻿using CityBuilder.Game;
+﻿using CityBuilder.Game.Ui;
 using UnityEngine;
 using Zenject;
 
