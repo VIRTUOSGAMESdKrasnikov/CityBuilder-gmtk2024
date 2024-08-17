@@ -9,9 +9,11 @@ namespace CityBuilder.RuntimeData
         [SerializeField] private SpawnableDataStorage _buildingsStorage;
         [SerializeField] private ModelDataStorage _modelsStorage;
         [SerializeField] private UiCardsStorage _uiCardStorage;
+        [SerializeField] private UiSoundsStorage _uiSoundsStorage;
 
         public SpawnableDataStorage BuildingsStorage => _buildingsStorage;
         public ModelDataStorage ModelStorage => _modelsStorage;
         public UiCardsStorage UiCardsStorage => _uiCardStorage;
+        public UiSoundsStorage UiSoundsStorage => _uiSoundsStorage;
     }
 }

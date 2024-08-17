@@ -7,5 +7,6 @@ namespace CityBuilder.Interfaces
         public SpawnableDataStorage BuildingsStorage { get; }
         public ModelDataStorage ModelStorage { get; }
         public UiCardsStorage UiCardsStorage { get; }
+        public UiSoundsStorage UiSoundsStorage { get; }
     }
 }
