@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b16743b4d794bdd9df37c648bf62f78, type: 3}
+  m_Name: BuildingModelDataStorage
+  m_EditorClassIdentifier: 
+  _storageables:
+  - <ID>k__BackingField: 0
+    <Spawnables>k__BackingField:
+    - {fileID: 2161262609029598537, guid: 36c797e8534318442924e87135df63c2, type: 3}
+  - <ID>k__BackingField: 1
+    <Spawnables>k__BackingField:
+    - {fileID: 4062680322437180291, guid: c67209c3ad7f42b41b88e1b6bd92e13f, type: 3}
+  - <ID>k__BackingField: 2
+    <Spawnables>k__BackingField:
+    - {fileID: 4547880767624821929, guid: b40425bece83cc849a5a370d4ccbc45d, type: 3}
