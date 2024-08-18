@@ -8,5 +8,6 @@ namespace CityBuilder.DataStorage
     {
         [field:SerializeField] public CursorData DefaultCursor { get; private set; }
         [field:SerializeField] public CursorData CardHoveredCursor { get; private set; }
+        [field:SerializeField] public CursorData MovingBuildingCursor { get; private set; }
     }
 }

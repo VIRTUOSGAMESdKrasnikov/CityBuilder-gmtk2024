@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6326411994101524317}
   - component: {fileID: 1459988016442451105}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SkyScrapperBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}

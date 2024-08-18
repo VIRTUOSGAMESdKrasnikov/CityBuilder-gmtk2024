@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b67e6e3ff6d4d1fad8edb2e90919b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modelRenderers: []
+  _originalMaterial: {fileID: -6538903991835684241, guid: 7ee03d0ac1e021846bf5e97d5fbd4a15, type: 3}
+  _ghostMaterialCanBePlaced: {fileID: 2100000, guid: 6850ffdbfea7af54cac6bf29ad3ff621, type: 2}
+  _ghostMaterialPlacingForbidden: {fileID: 2100000, guid: 4d0d21ed6c918be4bb2a709f256013bc, type: 2}
