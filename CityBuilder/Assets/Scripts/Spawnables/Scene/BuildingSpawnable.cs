@@ -12,6 +12,8 @@ namespace CityBuilder.Spawnables.Scene
 {
     public class BuildingSpawnable : SceneSpawnable
     {
+        [SerializeField] private Transform _radiusShower;
+        
         [SerializeField] protected float _range;
         [SerializeField] private ScoreCalculatorBase _scoreCalculator;
         
@@ -36,6 +38,14 @@ namespace CityBuilder.Spawnables.Scene
             return true;
         }
 
+        public void ShowRaycastRadius()
+        {
+            _radiusShower.gameObject.SetActive(true);
+
+            _radiusShower.localScale = Vector3.one * _range;
+            _radiusShower.localPosition = Vector3.zero;
+        }
+        
         public bool CanBePlaced()
         {
             if (_scoreCalculator is not HouseCalculator)
@@ -53,6 +63,8 @@ namespace CityBuilder.Spawnables.Scene
 
         public void Place()
         {
+            _radiusShower.gameObject.SetActive(false);
+            
             SendPlacedEvent();
             BookCollectables();
         }

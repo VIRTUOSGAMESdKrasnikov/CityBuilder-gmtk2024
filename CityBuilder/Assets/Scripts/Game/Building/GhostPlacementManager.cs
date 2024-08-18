@@ -27,6 +27,7 @@ namespace CityBuilder.Game.Building
             }
 
             _currentBuilding = building;
+            _currentBuilding.ShowRaycastRadius();
         }
 
         private void Update()
