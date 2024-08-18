@@ -13,5 +13,6 @@ namespace CityBuilder.Interfaces
         public BuildingsDataStorage BuildingsDataStorage { get; }
         public PlayerDeck PlayerDeck { get; set; }
         public CursorStates CursorStates { get; }
+        public GameRulesStorage RulesStorage { get; }
     }
 }
