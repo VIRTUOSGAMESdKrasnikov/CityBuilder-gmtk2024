@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24032a345ece445f9f103cc86dde19c9, type: 3}
   m_Name: OrbitalCameraStorage
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: 0
-  <MovementKeyboardSpeed>k__BackingField: 20
-  <MovementMouseSensitivity>k__BackingField: 0.3
-  <MovementSmoothness>k__BackingField: 50
-  <RotationKeyboardSpeed>k__BackingField: 70
-  <RotationMouseSensitivity>k__BackingField: 0.15
-  <RotationSmoothness>k__BackingField: 30
-  <ZoomSmoothness>k__BackingField: 50
-  <MaxZoomSize>k__BackingField: 30
-  <MinZoomSize>k__BackingField: 5
-  <ZoomStepsCount>k__BackingField: 20
+  movementKeyboardSpeed: 20
+  movementMouseSensitivity: 0.3
+  movementSmoothness: 50
+  rotationKeyboardSpeed: 70
+  rotationMouseSensitivity: 0.15
+  rotationSmoothness: 30
+  xRotation: 45
+  zoomSmoothness: 50
+  maxZoomSize: 60
+  minZoomSize: 15
+  zoomStepsCount: 20
