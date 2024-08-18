@@ -10,13 +10,13 @@ namespace CityBuilder.Game.Building
         [SerializeField] private bool _canBePlaced;
         
         private BuildingSpawnable _currentBuilding;
-        private Camera _mainCamera;
+        private UnityEngine.Camera _mainCamera;
 
         private RaycastHit _hit;
         
         private void Awake()
         {
-            _mainCamera = Camera.main;
+            _mainCamera = UnityEngine.Camera.main;
         }
 
         public void SetCurrentBuilding(BuildingSpawnable building)
