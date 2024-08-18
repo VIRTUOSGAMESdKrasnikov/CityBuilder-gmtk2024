@@ -5,10 +5,14 @@ namespace CityBuilder.Game.Building
 {
     public class GhostPlacementManager : MonoBehaviour
     {
-        private Transform _currentBuilding;
+        private const float DEFAULT_HEIGHT_OFFSET = 3;
+        
+        [SerializeField] private bool _canBePlaced;
+        
+        private BuildingSpawnable _currentBuilding;
         private Camera _mainCamera;
 
-        private const float DEFAULT_HEIGHT_OFFSET = 3;
+        private RaycastHit _hit;
         
         private void Awake()
         {
@@ -17,42 +21,56 @@ namespace CityBuilder.Game.Building
 
         public void SetCurrentBuilding(BuildingSpawnable building)
         {
-            _currentBuilding = building.transform;
+            _currentBuilding = building;
         }
 
         private void Update()
         {
-            MoveBuilding();
-            if (CheckPlace())
+            if (_currentBuilding != null)
             {
-                PlaceBuilding();
+                MoveBuilding();
+                if (CheckPlace())
+                {
+                    PlaceBuilding();
+                }
             }
         }
 
         private void MoveBuilding()
         {
-            if (_currentBuilding != null)
+            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out _hit))
             {
-                Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    _currentBuilding.transform.position = new Vector3(hit.point.x, hit.point.y + DEFAULT_HEIGHT_OFFSET, hit.point.z);
-                }
+                _currentBuilding.transform.position = new Vector3(_hit.point.x, _hit.point.y + DEFAULT_HEIGHT_OFFSET, _hit.point.z);
             }
         }
-        
+
         private bool CheckPlace()
         {
-            return Input.GetMouseButtonDown(0);
+            bool canBePlaced = CanBePlaced();
+            _currentBuilding.UpdateModelGhostState(true, canBePlaced);
+
+            return canBePlaced && Input.GetMouseButtonDown(0);
         }
         
         private void PlaceBuilding()
         {
-            if (Physics.Raycast(_currentBuilding.position, Vector3.down, out var hit))
+            if (Physics.Raycast(_currentBuilding.transform.position, Vector3.down, out var hit))
             {
-                _currentBuilding.position = hit.point;
+                _currentBuilding.UpdateModelGhostState(false, true);
+                _currentBuilding.transform.position = hit.point;
             }
             _currentBuilding = null;
+        }
+
+        private bool CanBePlaced()
+        {
+            if (_hit.transform.gameObject.layer == 6)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

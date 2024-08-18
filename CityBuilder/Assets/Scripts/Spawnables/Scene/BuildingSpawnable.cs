@@ -1,4 +1,5 @@
-﻿using CityBuilder.Interfaces;
+﻿using System.Linq;
+using CityBuilder.Interfaces;
 using CityBuilder.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace CityBuilder.Spawnables.Scene
     public class BuildingSpawnable : SceneSpawnable
     {
         [Inject] private IRuntimeDataProvider _runtimeDataProvider;
+
+        private BuildingModelSpawnable _model;
         
         public override async UniTask<bool> Spawn(int id)
         {
@@ -16,6 +19,8 @@ namespace CityBuilder.Spawnables.Scene
             {
                 var modelInstantiateProcess = InstantiateAsync(model.Spawnables.Random(), transform);
                 await modelInstantiateProcess;
+
+                _model = modelInstantiateProcess.Result.FirstOrDefault() as BuildingModelSpawnable;
             }
             else
             {
@@ -23,6 +28,11 @@ namespace CityBuilder.Spawnables.Scene
             }
 
             return true;
+        }
+
+        public void UpdateModelGhostState(bool isGhost, bool canBePlaced)
+        {
+            _model.UpdateModelGhostState(isGhost, canBePlaced);
         }
     }
 }
