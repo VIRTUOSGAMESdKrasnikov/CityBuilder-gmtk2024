@@ -72,7 +72,7 @@ namespace CityBuilder.Game.Building
         {
             if (Physics.Raycast(_currentBuilding.transform.position, Vector3.down, out var hit))
             {
-                _currentBuilding.transform.DOJump(hit.point, 0.5f, 2, 0.2f);
+                _currentBuilding.transform.DOJump(hit.point, 0.6f, 2, 0.2f);
                 _currentBuilding.UpdateModelGhostState(false, true);
                 _currentBuilding.Place();
             }
