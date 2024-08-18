@@ -21,6 +21,11 @@ namespace CityBuilder.Game.Building
 
         public void SetCurrentBuilding(BuildingSpawnable building)
         {
+            if (_currentBuilding != null)
+            {
+                Destroy(_currentBuilding.gameObject);
+            }
+
             _currentBuilding = building;
         }
 
