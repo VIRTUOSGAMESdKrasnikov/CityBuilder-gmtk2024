@@ -8,9 +8,7 @@ namespace CityBuilder.Game.Building
     public class GhostPlacementManager : MonoBehaviour
     {
         private const float DEFAULT_HEIGHT_OFFSET = 3;
-        
-        [SerializeField] private bool _canBePlaced;
-        
+
         private BuildingSpawnable _currentBuilding;
         private UnityEngine.Camera _mainCamera;
 

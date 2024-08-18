@@ -36,11 +36,6 @@ namespace CityBuilder.Game.Building
             EventBus<LeftBuildingMode>.Subscribe(_leftBuildingModeEvent);
         }
 
-        private void OnLeftBuildingMode()
-        {
-            _gameManager.LeftBuildingMode();
-        }
-
         private void OnDestroy()
         {
             EventBus<LeftBuildingMode>.Unsubscribe(_leftBuildingModeEvent);
@@ -50,6 +45,13 @@ namespace CityBuilder.Game.Building
         {
             var spawnedBuilding = await _spawner.Spawn(new[] { id });
             _placementManager.SetCurrentBuilding(spawnedBuilding.FirstOrDefault());
+
+            EventBus<EnteredBuildingMode>.Publish(new EnteredBuildingMode());
+        }
+
+        private void OnLeftBuildingMode()
+        {
+            _gameManager.LeftBuildingMode();
         }
     }
 }
