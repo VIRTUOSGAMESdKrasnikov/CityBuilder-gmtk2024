@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace CityBuilder.Spawnables.Scene
@@ -42,6 +43,12 @@ namespace CityBuilder.Spawnables.Scene
                     renderer.material = _originalMaterial;
                 }
             }
+        }
+        
+        [Button]
+        private void AutoFindChildRenderers()
+        {
+            _modelRenderers = GetComponentsInChildren<MeshRenderer>();
         }
     }
 }
