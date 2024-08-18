@@ -14,6 +14,7 @@ namespace CityBuilder.RuntimeData
         [SerializeField] private OrbitalCameraStorage _orbitalCameraStorage;
         [SerializeField] private BuildingsDataStorage _buildingsDataStorage;
         [SerializeField] private CursorStates _cursorStates;
+        [SerializeField] private GameRulesStorage _gameRulesStorage;
         
         public SpawnableDataStorage BuildingsStorage => _buildingsStorage;
         public ModelDataStorage ModelStorage => _modelsStorage;
@@ -24,6 +25,6 @@ namespace CityBuilder.RuntimeData
         public PlayerDeck PlayerDeck { get; set; }
         public CursorStates CursorStates => _cursorStates;
         public OrbitalCameraStorage OrbitalCameraStorage => _orbitalCameraStorage;
-        
+        public GameRulesStorage RulesStorage => _gameRulesStorage;
     }
 }
