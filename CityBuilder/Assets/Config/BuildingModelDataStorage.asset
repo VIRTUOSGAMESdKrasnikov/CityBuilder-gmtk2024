@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b16743b4d794bdd9df37c648bf62f78, type: 3}
-  m_Name: ModelDataStorage
+  m_Name: BuildingModelDataStorage
   m_EditorClassIdentifier: 
   _storageables:
   - <ID>k__BackingField: 0

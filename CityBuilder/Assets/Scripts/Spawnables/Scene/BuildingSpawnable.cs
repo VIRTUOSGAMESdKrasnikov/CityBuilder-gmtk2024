@@ -13,6 +13,7 @@ namespace CityBuilder.Spawnables.Scene
     public class BuildingSpawnable : SceneSpawnable
     {
         [SerializeField] private Transform _radiusShower;
+        [SerializeField] private ParticleSystem _onPlaceParticles;
         
         [SerializeField] protected float _range;
         [SerializeField] private ScoreCalculatorBase _scoreCalculator;
@@ -23,6 +24,8 @@ namespace CityBuilder.Spawnables.Scene
 
         public override async UniTask<bool> Spawn(int id)
         {
+            _onPlaceParticles.gameObject.SetActive(false);
+            
             if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
             {
                 var modelInstantiateProcess = InstantiateAsync(model.Spawnables.Random(), transform);
@@ -64,6 +67,9 @@ namespace CityBuilder.Spawnables.Scene
         public void Place()
         {
             _radiusShower.gameObject.SetActive(false);
+            
+            _onPlaceParticles.gameObject.SetActive(true);
+            _onPlaceParticles.Play();
             
             SendPlacedEvent();
             BookCollectables();
