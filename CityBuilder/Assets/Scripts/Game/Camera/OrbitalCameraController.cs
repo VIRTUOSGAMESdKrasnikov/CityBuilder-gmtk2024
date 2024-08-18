@@ -1,3 +1,4 @@
+using CityBuilder.DataStorage;
 using UnityEngine;
 
 namespace CityBuilder.Game.Camera
@@ -6,20 +7,8 @@ namespace CityBuilder.Game.Camera
     {
         private Transform _orbitalRig;
         private Transform _camTrans;
+        private readonly OrbitalCameraStorage _orbitalCameraDataStorage;
 
-        // TODO: Move to RunTimeDataProvider 
-        private float _movementKeyboardSpeed = 20f;
-        private float _movementMouseSensitivity = .3f;
-        private float _movementSmoothness = 50f;
-
-        private float _rotationKeyboardSpeed = 70f;
-        private float _rotationMouseSensitivity = .15f;
-        private float _rotationSmoothness = 30f;
-
-        private float _zoomSmoothness = 50f;
-        private float _maxZoomSize = 30f;
-        private float _minZoomSize = 5f;
-        private float _zoomStepsCount = 20f;
         private float _zoomStep;
 
         private Vector3 _newPos;
@@ -31,10 +20,11 @@ namespace CityBuilder.Game.Camera
 
         private UnityEngine.Camera _cam;
 
-        public OrbitalCameraController(Transform rig, Transform camTrans)
+        public OrbitalCameraController(Transform rig, Transform camTrans, OrbitalCameraStorage orbitalCameraDataStorage)
         {
             _orbitalRig = rig;
             _camTrans = camTrans;
+            _orbitalCameraDataStorage = orbitalCameraDataStorage;
             _cam = UnityEngine.Camera.main;
         }
 
@@ -42,8 +32,9 @@ namespace CityBuilder.Game.Camera
         {
             _newPos = _orbitalRig.position;
             _yRotation = _orbitalRig.rotation.eulerAngles.y;
-            _newZoom = _maxZoomSize;
-            _zoomStep = (_maxZoomSize - _minZoomSize) / _zoomStepsCount;
+            _newZoom = _orbitalCameraDataStorage.MaxZoomSize;
+            _zoomStep = (_orbitalCameraDataStorage.MaxZoomSize - _orbitalCameraDataStorage.MinZoomSize) /
+                        _orbitalCameraDataStorage.ZoomStepsCount;
         }
 
         public void Dispose()
@@ -73,7 +64,7 @@ namespace CityBuilder.Game.Camera
             else
                 HandleKeyboardBasedRotation(yRotationInput);
             HandleZoom(zoomInput);
-            
+
             if (Input.GetKeyDown(KeyCode.M))
                 MaximizeZoom();
 
@@ -89,13 +80,13 @@ namespace CityBuilder.Game.Camera
             if (GetPlaneRay(out var ray).Raycast(ray, out var entry))
             {
                 _dragCurrentPos = ray.GetPoint(entry);
-                _newPos += (_dragStartPos - _dragCurrentPos) * _movementMouseSensitivity;
+                _newPos += (_dragStartPos - _dragCurrentPos) * _orbitalCameraDataStorage.MovementMouseSensitivity;
             }
         }
 
         private void HandleKeyboardBasedMovement(Vector2 input)
         {
-            var deltaSpeed = _movementKeyboardSpeed * Time.deltaTime;
+            var deltaSpeed = _orbitalCameraDataStorage.MovementKeyboardSpeed * Time.deltaTime;
 
             var fwdDir = _orbitalRig.forward;
             fwdDir.y = 0f;
@@ -119,12 +110,12 @@ namespace CityBuilder.Game.Camera
             float diffX = _rotateStartScreenPos.x - _rotateCurrentScreenPos.x;
             _rotateStartScreenPos = _rotateCurrentScreenPos;
 
-            _yRotation += -diffX * _rotationMouseSensitivity;
+            _yRotation += -diffX * _orbitalCameraDataStorage.RotationMouseSensitivity;
         }
 
         private void HandleKeyboardBasedRotation(float yRotationInput)
         {
-            var yDeltaRotation = yRotationInput * _rotationKeyboardSpeed * Time.deltaTime;
+            var yDeltaRotation = yRotationInput * _orbitalCameraDataStorage.RotationKeyboardSpeed * Time.deltaTime;
             _yRotation += yDeltaRotation;
         }
 
@@ -144,10 +135,11 @@ namespace CityBuilder.Game.Camera
                 zoomDelta = _zoomStep;
 
             var worldZoomValue = Mathf.Abs(_camTrans.transform.localPosition.z);
-            _newZoom = Mathf.Clamp(zoomDelta + worldZoomValue, _minZoomSize, _maxZoomSize);
+            _newZoom = Mathf.Clamp(zoomDelta + worldZoomValue, _orbitalCameraDataStorage.MinZoomSize,
+                _orbitalCameraDataStorage.MaxZoomSize);
         }
 
-        private void MaximizeZoom() => _newZoom = _maxZoomSize;
+        private void MaximizeZoom() => _newZoom = _orbitalCameraDataStorage.MaxZoomSize;
 
         #endregion
 
@@ -156,14 +148,14 @@ namespace CityBuilder.Game.Camera
         private void ApplyPosition()
         {
             _orbitalRig.position = Vector3.Lerp(_orbitalRig.position, _newPos,
-                Time.deltaTime * _movementSmoothness);
+                Time.deltaTime * _orbitalCameraDataStorage.MovementSmoothness);
         }
 
         private void ApplyZoom()
         {
             var zoomVector = new Vector3(0f, 0f, -_newZoom);
             _camTrans.transform.localPosition = Vector3.Lerp(_camTrans.transform.localPosition, zoomVector,
-                Time.deltaTime * _zoomSmoothness);
+                Time.deltaTime * _orbitalCameraDataStorage.ZoomSmoothness);
         }
 
         // TODO: x should not be magic number.
@@ -171,7 +163,8 @@ namespace CityBuilder.Game.Camera
         {
             var newRotation = Quaternion.Euler(45f, _yRotation, 0f);
             _orbitalRig.rotation =
-                Quaternion.Slerp(_orbitalRig.rotation, newRotation, Time.deltaTime * _rotationSmoothness);
+                Quaternion.Slerp(_orbitalRig.rotation, newRotation,
+                    Time.deltaTime * _orbitalCameraDataStorage.RotationSmoothness);
         }
 
         #endregion
