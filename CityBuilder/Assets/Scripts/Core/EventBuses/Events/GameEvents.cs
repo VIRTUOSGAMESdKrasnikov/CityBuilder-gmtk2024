@@ -10,6 +10,16 @@
         }
     }
 
+    public class ScoreChangedEvent : IEvent
+    {
+        public int CurrentScore { get; private set; }
+
+        public ScoreChangedEvent(int currentScore)
+        {
+            CurrentScore = currentScore;
+        }
+    }
+    
     public class MouseOverCardEvent : IEvent
     {
         public MouseOverCardEvent(){}
