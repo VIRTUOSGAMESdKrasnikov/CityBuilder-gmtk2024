@@ -44,5 +44,11 @@ namespace CityBuilder.Game.Collectables
                 }
             }
         }
+
+        [ContextMenu("AutoFindChildRenderers")]
+        private void AutoFindChildRenderers()
+        {
+            _renderers = GetComponentsInChildren<MeshRenderer>();
+        }
     }
 }
