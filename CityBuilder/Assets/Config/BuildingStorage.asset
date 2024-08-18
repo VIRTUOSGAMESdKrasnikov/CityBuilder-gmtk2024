@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3bb84e45ac84405bf08c5bcf7ec3bf9, type: 3}
-  m_Name: SpawnableDataStorage
+  m_Name: BuildingStorage
   m_EditorClassIdentifier: 
   _storageables:
   - <ID>k__BackingField: 0
-    <Spawnable>k__BackingField: {fileID: 5302244446485780059, guid: f463a97f18540b644a85415dd5468730, type: 3}
+    <Spawnable>k__BackingField: {fileID: 8021876154050421477, guid: 640b5e0195cdad342aba97d47724d3e0, type: 3}
   - <ID>k__BackingField: 1
-    <Spawnable>k__BackingField: {fileID: 1459988016442451105, guid: c7b0cddb2de3c084eb9c6c999396b932, type: 3}
+    <Spawnable>k__BackingField: {fileID: 3830979175654978564, guid: 6968100d34bc1cc47853431643be1944, type: 3}
   - <ID>k__BackingField: 2
-    <Spawnable>k__BackingField: {fileID: 6912151775332364989, guid: 2c811d90dd4f2f4418f1289f361959b7, type: 3}
+    <Spawnable>k__BackingField: {fileID: 6149182557072459318, guid: 06f2519f10052b74c8982665469bd274, type: 3}
