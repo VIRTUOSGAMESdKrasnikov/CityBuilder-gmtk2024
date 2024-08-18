@@ -8,25 +8,26 @@ namespace CityBuilder.Game.Camera
         private Transform _camTrans;
 
         // TODO: Move to RunTimeDataProvider 
-        private float _movementKeyboardSpeed = 100f;
-        private float _movementMouseSensitivity = .5f;
-        private float _movementSmoothness = 20f;
+        private float _movementKeyboardSpeed = 20f;
+        private float _movementMouseSensitivity = .3f;
+        private float _movementSmoothness = 50f;
 
-        private float _rotationKeyboardSpeed = 100f;
-        private float _rotationMouseSensitivity = .5f;
-        private float _rotationSmoothness = 10f;
+        private float _rotationKeyboardSpeed = 70f;
+        private float _rotationMouseSensitivity = .15f;
+        private float _rotationSmoothness = 30f;
 
-        private float _zoomSmoothness = 20f;
-        private float _maxZoomSize = 10f;
-        private float _minZoomSize = 2f;
-        private float _zoomStep = .1f;
+        private float _zoomSmoothness = 50f;
+        private float _maxZoomSize = 30f;
+        private float _minZoomSize = 5f;
+        private float _zoomStepsCount = 20f;
+        private float _zoomStep;
 
         private Vector3 _newPos;
         private float _yRotation;
         private float _newZoom;
 
         private Vector3 _dragCurrentPos, _dragStartPos;
-        private Vector3 _rotateCurrentPos, _rotateStartPos;
+        private Vector3 _rotateCurrentScreenPos, _rotateStartScreenPos;
 
         private UnityEngine.Camera _cam;
 
@@ -41,6 +42,8 @@ namespace CityBuilder.Game.Camera
         {
             _newPos = _orbitalRig.position;
             _yRotation = _orbitalRig.rotation.eulerAngles.y;
+            _newZoom = _maxZoomSize;
+            _zoomStep = (_maxZoomSize - _minZoomSize) / _zoomStepsCount;
         }
 
         public void Dispose()
@@ -50,23 +53,20 @@ namespace CityBuilder.Game.Camera
         public void Tick()
         {
             if (Input.GetMouseButtonDown(0))
-            { 
+            {
                 if (GetPlaneRay(out var ray).Raycast(ray, out var entry))
                     _dragStartPos = ray.GetPoint(entry);
             }
-            
+
             if (Input.GetMouseButtonDown(1))
-            { 
-                if (GetPlaneRay(out var ray).Raycast(ray, out var entry))
-                    _rotateStartPos = ray.GetPoint(entry);
-            }
-                
+                _rotateStartScreenPos = Input.mousePosition;
+
             if (Input.GetMouseButton(0))
                 HandleMouseBasedMovement();
 
             if (Input.GetMouseButton(1))
                 HandleMouseBasedRotation();
-            
+
             var rotationInput = 0f;
             if (Input.GetKey(KeyCode.Q))
                 rotationInput = -1f;
@@ -74,20 +74,26 @@ namespace CityBuilder.Game.Camera
                 rotationInput = 1f;
 
             var zoomInput = 0f;
+            var scrollWheel = Input.GetAxisRaw("Mouse ScrollWheel");
+            if (scrollWheel > 0f)
+                zoomInput = -1f;
+            else if (scrollWheel < 0f)
+                zoomInput = 1f;
+
             if (Input.GetKey(KeyCode.R))
                 zoomInput = -1f;
             if (Input.GetKey(KeyCode.F))
                 zoomInput = 1f;
-            
+
             var moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            
+
             HandleKeyboardBasedMovement(moveInput);
             HandleKeyboardBasedRotation(rotationInput);
-            
+
             HandleZoom(zoomInput);
             if (Input.GetKeyDown(KeyCode.M))
                 SetZoomCenter();
-            
+
             ApplyPosition();
             ApplyRotation();
             ApplyZoom();
@@ -125,10 +131,10 @@ namespace CityBuilder.Game.Camera
 
         private void HandleMouseBasedRotation()
         {
-            _rotateCurrentPos = Input.mousePosition;
+            _rotateCurrentScreenPos = Input.mousePosition;
 
-            float diffX = _rotateStartPos.x - _rotateCurrentPos.x;
-            _rotateStartPos = _rotateCurrentPos;
+            float diffX = _rotateStartScreenPos.x - _rotateCurrentScreenPos.x;
+            _rotateStartScreenPos = _rotateCurrentScreenPos;
 
             _yRotation += -diffX * _rotationMouseSensitivity;
         }
@@ -145,16 +151,17 @@ namespace CityBuilder.Game.Camera
 
         private void HandleZoom(float input)
         {
-            if (input < 0.1f)
+            if (Mathf.Abs(input) < 0.1f)
                 return;
 
             float zoomDelta = 0f;
-            if (input > 0f)
+            if (input < 0f)
                 zoomDelta = -_zoomStep;
-            else if (input < 0f)
+            else if (input > 0f)
                 zoomDelta = _zoomStep;
 
-            _newZoom = Mathf.Clamp(zoomDelta + _camTrans.transform.localPosition.y, _minZoomSize, _maxZoomSize);
+            var worldZoomValue = Mathf.Abs(_camTrans.transform.localPosition.z);
+            _newZoom = Mathf.Clamp(zoomDelta + worldZoomValue, _minZoomSize, _maxZoomSize);
         }
 
         private void SetZoomCenter()
@@ -176,7 +183,7 @@ namespace CityBuilder.Game.Camera
 
         private void ApplyZoom()
         {
-            var zoomVector = new Vector3(0f, _newZoom, -_newZoom);
+            var zoomVector = new Vector3(0f, 0f, -_newZoom);
             _camTrans.transform.localPosition = Vector3.Lerp(_camTrans.transform.localPosition, zoomVector,
                 Time.deltaTime * _zoomSmoothness);
         }

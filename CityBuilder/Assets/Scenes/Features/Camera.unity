@@ -2273,6 +2273,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4183259278004494658, guid: acd745830123d864bbd03619768370c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4183259278004494658, guid: acd745830123d864bbd03619768370c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5558443612483566758, guid: acd745830123d864bbd03619768370c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.000010789594
+      objectReference: {fileID: 0}
+    - target: {fileID: 5558443612483566758, guid: acd745830123d864bbd03619768370c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000010789593
+      objectReference: {fileID: 0}
     - target: {fileID: 5808786210720057619, guid: acd745830123d864bbd03619768370c4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
