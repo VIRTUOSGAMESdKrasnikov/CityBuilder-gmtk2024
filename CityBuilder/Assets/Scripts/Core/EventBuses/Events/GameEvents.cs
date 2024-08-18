@@ -1,4 +1,6 @@
-﻿namespace CityBuilder.Core.EventBuses.Events
+﻿using CityBuilder.Spawnables.Scene;
+
+namespace CityBuilder.Core.EventBuses.Events
 {
     public class CardClickedEvent : IEvent
     {
@@ -19,15 +21,19 @@
             CurrentScore = currentScore;
         }
     }
-    
+
     public class MouseOverCardEvent : IEvent
     {
-        public MouseOverCardEvent(){}
+        public MouseOverCardEvent()
+        {
+        }
     }
-    
+
     public class MouseLeftCardEvent : IEvent
     {
-        public MouseLeftCardEvent(){}
+        public MouseLeftCardEvent()
+        {
+        }
     }
 
     public class DevPanelIgnoreScore : IEvent
@@ -42,11 +48,25 @@
 
     public class EnteredBuildingMode : IEvent
     {
-        public EnteredBuildingMode(){}
+        public EnteredBuildingMode()
+        {
+        }
     }
-    
+
     public class LeftBuildingMode : IEvent
     {
-        public LeftBuildingMode(){}
+        public LeftBuildingMode()
+        {
+        }
+    }
+
+    public class PlacedBuildingEvent : IEvent
+    {
+        public BuildingSpawnable BuildingSpawnable { get; private set; }
+
+        public PlacedBuildingEvent(BuildingSpawnable buildingSpawnable)
+        {
+            BuildingSpawnable = buildingSpawnable;
+        }
     }
 }

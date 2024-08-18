@@ -20,7 +20,7 @@ namespace CityBuilder.Spawnables.Scene
         [Inject] private IRuntimeDataProvider _runtimeDataProvider;
 
         private BuildingModelSpawnable _model;
-        
+
         public override async UniTask<bool> Spawn(int id)
         {
             if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
@@ -69,9 +69,12 @@ namespace CityBuilder.Spawnables.Scene
             BookCollectables();
         }
 
+        public int GetScore() => _scoreCalculator.GetScore(transform, _range);
+        
         private void SendPlacedEvent()
         {
             EventBus<LeftBuildingMode>.Publish(new LeftBuildingMode());
+            EventBus<PlacedBuildingEvent>.Publish(new PlacedBuildingEvent(this));
         }
 
         private void BookCollectables()
