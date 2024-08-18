@@ -3314,6 +3314,7 @@ MonoBehaviour:
   _uiCardStorage: {fileID: 11400000, guid: cbe842ae77fc21640940680523e34307, type: 2}
   _uiSoundsStorage: {fileID: 11400000, guid: d444e7689a2464347a9af9353ac9821a, type: 2}
   _buildingsDataStorage: {fileID: 11400000, guid: cd4c530618234b744980aabe19edc1a8, type: 2}
+  _cursorStates: {fileID: 11400000, guid: 161015966eba82e44b17b41590ba7541, type: 2}
 --- !u!114 &1990945884
 MonoBehaviour:
   m_ObjectHideFlags: 0

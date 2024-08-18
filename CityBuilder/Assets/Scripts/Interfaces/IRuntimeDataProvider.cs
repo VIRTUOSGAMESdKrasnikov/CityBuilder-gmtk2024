@@ -1,5 +1,4 @@
 ﻿using CityBuilder.DataStorage;
-using CityBuilder.Game;
 using CityBuilder.Game.Deck;
 
 namespace CityBuilder.Interfaces
@@ -12,5 +11,6 @@ namespace CityBuilder.Interfaces
         public UiSoundsStorage UiSoundsStorage { get; }
         public BuildingsDataStorage BuildingsDataStorage { get; }
         public PlayerDeck PlayerDeck { get; set; }
+        public CursorStates CursorStates { get; }
     }
 }

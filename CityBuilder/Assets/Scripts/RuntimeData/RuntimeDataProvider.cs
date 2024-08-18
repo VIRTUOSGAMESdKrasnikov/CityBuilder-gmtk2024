@@ -12,6 +12,7 @@ namespace CityBuilder.RuntimeData
         [SerializeField] private UiCardsStorage _uiCardStorage;
         [SerializeField] private UiSoundsStorage _uiSoundsStorage;
         [SerializeField] private BuildingsDataStorage _buildingsDataStorage;
+        [SerializeField] private CursorStates _cursorStates;
 
         public SpawnableDataStorage BuildingsStorage => _buildingsStorage;
         public ModelDataStorage ModelStorage => _modelsStorage;
@@ -19,5 +20,6 @@ namespace CityBuilder.RuntimeData
         public UiSoundsStorage UiSoundsStorage => _uiSoundsStorage;
         public BuildingsDataStorage BuildingsDataStorage => _buildingsDataStorage;
         public PlayerDeck PlayerDeck { get; set; }
+        public CursorStates CursorStates => _cursorStates;
     }
 }
