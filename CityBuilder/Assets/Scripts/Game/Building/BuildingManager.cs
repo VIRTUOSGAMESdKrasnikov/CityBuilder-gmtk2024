@@ -6,7 +6,7 @@ using CityBuilder.Spawners;
 using UnityEngine;
 using Zenject;
 
-namespace CityBuilder.Game
+namespace CityBuilder.Game.Building
 {
     public class BuildingManager : MonoBehaviour
     {

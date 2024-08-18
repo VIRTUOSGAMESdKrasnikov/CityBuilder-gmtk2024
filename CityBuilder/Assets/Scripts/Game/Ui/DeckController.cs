@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CityBuilder.DataStorage;
 using CityBuilder.DataStorage.Storageables;
+using CityBuilder.Game.Deck;
 using CityBuilder.Interfaces;
 using CityBuilder.Spawnables.UI;
 using CityBuilder.Spawners;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +15,6 @@ namespace CityBuilder.Game.Ui
 {
     public class DeckController : MonoBehaviour
     {
-        [SerializeField] private Transform _pileParent;
         [SerializeField] private Transform _activeCardsParent;
 
         [Inject] private DiContainer _container;
@@ -20,7 +22,7 @@ namespace CityBuilder.Game.Ui
 
         private ISpawner<UiCardsStorage, UiCardStorageable, UiCardSpawnable> _cardsSpawner;
 
-        private List<int> _availableCardsIds;
+        private PlayerDeck _playerDeck;
         private IEnumerable<UiCardSpawnable> _spawnedCards;
         
         private void Awake()
@@ -31,42 +33,36 @@ namespace CityBuilder.Game.Ui
         
         private async void Start()
         {
-            _spawnedCards = await _cardsSpawner.Spawn(_availableCardsIds);
+            await SpawnCards();
+        }
 
-            // todo add pile position algorithm
-            // like cards would be placed with offset
+        private async UniTask SpawnCards()
+        {
+            _spawnedCards = await _cardsSpawner.Spawn(_playerDeck.RosterCards);
+
             foreach (var card in _spawnedCards)
             {
-                card.transform.SetParent(_pileParent);
+                card.transform.SetParent(_activeCardsParent);
 
                 card.transform.localPosition = Vector3.zero;
                 card.transform.localScale = Vector3.one;
                 card.transform.localRotation = Quaternion.identity;
             }
-
-            int i = 0;
-
-            foreach (var card in _spawnedCards)
-            {
-                if (i >= 3)
-                {
-                    break;
-                }
-
-                card.transform.SetParent(_activeCardsParent);
-
-                card.transform.localScale = Vector3.one;
-                card.transform.localRotation = Quaternion.identity;
-                
-                // todo add auto turn when card lands on active table
-                
-                i++;
-            }
+            
+            // todo add sth like "disable card input"
+            // like spawn all cards, find diff between RosterCards and available
+            // and then turn that diff closed side so user cant interact with them 
         }
 
-        public void SetAvailableCards(List<int> availableCardsIds)
+        public void SetCardsRoster(PlayerDeck cardsRoster)
         {
-            _availableCardsIds = availableCardsIds;
+            _playerDeck = cardsRoster;
+            _playerDeck.AvailableCardsUpdated += OnDeckUpdated;
+        }
+
+        private async void OnDeckUpdated()
+        {
+            await SpawnCards();
         }
     }
 }
