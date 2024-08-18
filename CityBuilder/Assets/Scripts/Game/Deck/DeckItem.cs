@@ -9,5 +9,6 @@ namespace CityBuilder.Game.Deck
         [field:SerializeField] public int ID { get; set; }
         [field:SerializeField] public bool AvailableOnStart { get; private set; }
         [field:SerializeField] public int ScorePerStepNeeded { get; private set; }
+        [field:SerializeField] public int ScorePerStepProduced { get; private set; }
     }
 }

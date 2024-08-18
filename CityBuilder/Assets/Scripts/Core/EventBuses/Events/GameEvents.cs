@@ -19,4 +19,14 @@
     {
         public MouseLeftCardEvent(){}
     }
+
+    public class DevPanelIgnoreScore : IEvent
+    {
+        public bool Ignore { get; private set; }
+
+        public DevPanelIgnoreScore(bool ignore)
+        {
+            Ignore = ignore;
+        }
+    }
 }

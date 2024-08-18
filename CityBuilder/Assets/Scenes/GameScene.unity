@@ -2798,6 +2798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _switchButton: {fileID: 546008325}
+  _ignoreScore: {fileID: 2109371815}
   _buildingIdInput: {fileID: 1127243878}
   _spawnBuildingButton: {fileID: 1593804495}
 --- !u!1 &1688990719
@@ -3473,7 +3474,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &2123066297
 GameObject:
   m_ObjectHideFlags: 0

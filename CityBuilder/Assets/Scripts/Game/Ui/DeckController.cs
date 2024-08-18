@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CityBuilder.DataStorage;
 using CityBuilder.DataStorage.Storageables;
@@ -47,11 +48,21 @@ namespace CityBuilder.Game.Ui
                 card.transform.localPosition = Vector3.zero;
                 card.transform.localScale = Vector3.one;
                 card.transform.localRotation = Quaternion.identity;
+
+                SetCardInteractable(card);
             }
-            
-            // todo add sth like "disable card input"
-            // like spawn all cards, find diff between RosterCards and available
-            // and then turn that diff closed side so user cant interact with them 
+        }
+
+        private void SetCardInteractable(UiCardSpawnable card)
+        {
+            if (_playerDeck.AvailableCards.Contains(card.Id))
+            {
+                card.SetInteractable(true);
+            }
+            else
+            {
+                card.SetInteractable(false);
+            }
         }
 
         public void SetCardsRoster(PlayerDeck cardsRoster)
@@ -60,9 +71,12 @@ namespace CityBuilder.Game.Ui
             _playerDeck.AvailableCardsUpdated += OnDeckUpdated;
         }
 
-        private async void OnDeckUpdated()
+        private void OnDeckUpdated()
         {
-            await SpawnCards();
+            foreach (var card in _spawnedCards)
+            {
+                SetCardInteractable(card);
+            }
         }
     }
 }
