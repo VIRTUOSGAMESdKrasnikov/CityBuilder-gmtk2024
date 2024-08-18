@@ -31,6 +31,15 @@ namespace CityBuilder.Spawnables.UI
 
         public void SetInteractable(bool interactable)
         {
+            if (interactable)
+            {
+                _cardTurnController.OpenFrontFace();
+            }
+            else
+            {
+                _cardTurnController.OpenBackFace();
+            }
+
             _canvasGroup.blocksRaycasts = interactable;
         }
     }

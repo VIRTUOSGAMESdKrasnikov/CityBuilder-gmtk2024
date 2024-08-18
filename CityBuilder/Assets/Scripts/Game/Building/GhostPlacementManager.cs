@@ -65,6 +65,11 @@ namespace CityBuilder.Game.Building
 
         private bool CanBePlaced()
         {
+            if (_hit.transform == null)
+            {
+                return false;
+            }
+            
             if (_hit.transform.gameObject.layer == 6)
             {
                 return true;
