@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2127811695388625741}
   - component: {fileID: 6912151775332364989}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: UnevenBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208afbc9da1f4fa0af12473a8022de8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _range: 10
+  _scoreCalculator: {fileID: 11400000, guid: 7ecd865fe5c5e7f4797ce536f78324f7, type: 2}

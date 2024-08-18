@@ -21,6 +21,11 @@ namespace CityBuilder.Game.Building
 
         public void SetCurrentBuilding(BuildingSpawnable building)
         {
+            if (_currentBuilding != null)
+            {
+                Destroy(_currentBuilding.gameObject);
+            }
+
             _currentBuilding = building;
         }
 
@@ -47,10 +52,12 @@ namespace CityBuilder.Game.Building
 
         private bool CheckPlace()
         {
-            bool canBePlaced = CanBePlaced();
-            _currentBuilding.UpdateModelGhostState(true, canBePlaced);
+            bool enoughSpaceAndIsOnMap = IsEnoughPlace();
+            bool enoughScore = _currentBuilding.CanBePlaced();
 
-            return canBePlaced && Input.GetMouseButtonDown(0);
+            _currentBuilding.UpdateModelGhostState(true, enoughSpaceAndIsOnMap && enoughScore);
+
+            return enoughScore && enoughSpaceAndIsOnMap && Input.GetMouseButtonDown(0);
         }
         
         private void PlaceBuilding()
@@ -63,7 +70,7 @@ namespace CityBuilder.Game.Building
             _currentBuilding = null;
         }
 
-        private bool CanBePlaced()
+        private bool IsEnoughPlace()
         {
             if (_hit.transform == null)
             {
