@@ -52,6 +52,7 @@ namespace CityBuilder.Game.Camera
 
         public void Tick()
         {
+            // Setup start positions for mouse based functions.
             if (Input.GetMouseButtonDown(0))
             {
                 if (GetPlaneRay(out var ray).Raycast(ray, out var entry))
@@ -61,38 +62,20 @@ namespace CityBuilder.Game.Camera
             if (Input.GetMouseButtonDown(1))
                 _rotateStartScreenPos = Input.mousePosition;
 
+            // Handling functions.
+            GetInputs(out var moveInput, out var yRotationInput, out var zoomInput);
             if (Input.GetMouseButton(0))
                 HandleMouseBasedMovement();
-
+            else
+                HandleKeyboardBasedMovement(moveInput);
             if (Input.GetMouseButton(1))
                 HandleMouseBasedRotation();
-
-            var rotationInput = 0f;
-            if (Input.GetKey(KeyCode.Q))
-                rotationInput = -1f;
-            if (Input.GetKey(KeyCode.E))
-                rotationInput = 1f;
-
-            var zoomInput = 0f;
-            var scrollWheel = Input.GetAxisRaw("Mouse ScrollWheel");
-            if (scrollWheel > 0f)
-                zoomInput = -1f;
-            else if (scrollWheel < 0f)
-                zoomInput = 1f;
-
-            if (Input.GetKey(KeyCode.R))
-                zoomInput = -1f;
-            if (Input.GetKey(KeyCode.F))
-                zoomInput = 1f;
-
-            var moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-            HandleKeyboardBasedMovement(moveInput);
-            HandleKeyboardBasedRotation(rotationInput);
-
+            else
+                HandleKeyboardBasedRotation(yRotationInput);
             HandleZoom(zoomInput);
+            
             if (Input.GetKeyDown(KeyCode.M))
-                SetZoomCenter();
+                MaximizeZoom();
 
             ApplyPosition();
             ApplyRotation();
@@ -164,12 +147,7 @@ namespace CityBuilder.Game.Camera
             _newZoom = Mathf.Clamp(zoomDelta + worldZoomValue, _minZoomSize, _maxZoomSize);
         }
 
-        private void SetZoomCenter()
-        {
-            _newZoom = _maxZoomSize;
-            _newPos = new Vector3(0, _orbitalRig.localPosition.y, 0);
-            _yRotation = 0f;
-        }
+        private void MaximizeZoom() => _newZoom = _maxZoomSize;
 
         #endregion
 
@@ -197,6 +175,30 @@ namespace CityBuilder.Game.Camera
         }
 
         #endregion
+
+        // TODO: Yeah, in future it should be remade.
+        private void GetInputs(out Vector2 moveInput, out float yRotationInput, out float zoomInput)
+        {
+            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            yRotationInput = 0f;
+            if (Input.GetKey(KeyCode.Q))
+                yRotationInput = -1f;
+            else if (Input.GetKey(KeyCode.E))
+                yRotationInput = 1f;
+
+            zoomInput = 0f;
+            var scrollWheel = Input.GetAxisRaw("Mouse ScrollWheel");
+            if (scrollWheel > 0f)
+                zoomInput = -1f;
+            else if (scrollWheel < 0f)
+                zoomInput = 1f;
+
+            if (Input.GetKey(KeyCode.R))
+                zoomInput = -1f;
+            if (Input.GetKey(KeyCode.F))
+                zoomInput = 1f;
+        }
 
         private Plane GetPlaneRay(out Ray ray)
         {
