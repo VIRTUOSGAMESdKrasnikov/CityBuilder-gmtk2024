@@ -38,6 +38,11 @@ namespace CityBuilder.Game.Building
                 {
                     PlaceBuilding();
                 }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Destroy(_currentBuilding.gameObject);
+                }
             }
         }
 
@@ -64,8 +69,9 @@ namespace CityBuilder.Game.Building
         {
             if (Physics.Raycast(_currentBuilding.transform.position, Vector3.down, out var hit))
             {
-                _currentBuilding.UpdateModelGhostState(false, true);
                 _currentBuilding.transform.position = hit.point;
+                _currentBuilding.UpdateModelGhostState(false, true);
+                _currentBuilding.BookCollectables();
             }
             _currentBuilding = null;
         }

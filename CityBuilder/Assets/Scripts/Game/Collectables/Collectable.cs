@@ -8,10 +8,8 @@ namespace CityBuilder.Game.Collectables
         [SerializeField] private int _id;
         [SerializeField] private int _scorePerStep;
 
-        private bool _isTaken;
-
         public int Id => _id;
-        public bool IsTaken => _isTaken;
+        public bool IsTaken { get; set; }
         public int ScorePerStep => _scorePerStep;
     }
 }

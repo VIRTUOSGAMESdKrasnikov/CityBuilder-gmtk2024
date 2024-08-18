@@ -48,5 +48,22 @@ namespace CityBuilder.Spawnables.Scene
         {
             _model.UpdateModelGhostState(isGhost, canBePlaced);
         }
+
+        public void BookCollectables()
+        {
+            var nearbyResources = Physics.OverlapBox(
+                transform.position,
+                new Vector3(_range / 2, 100, _range / 2),
+                Quaternion.identity,
+                LayerMask.GetMask("Collectable"));
+
+            foreach (var collider in nearbyResources)
+            {
+                if (collider.TryGetComponent<ICollectable>(out var collectable))
+                {
+                    collectable.IsTaken = true;
+                }
+            }
+        }
     }
 }
