@@ -20,23 +20,28 @@ namespace CityBuilder.Game.Sfx
         
         private EventBinding<MouseOverCardEvent> _mouseOverCardEvent;
         private EventBinding<MouseLeftCardEvent> _mouseLeftCardEvent;
+        private EventBinding<LeftBuildingMode> _leftBuildingModeEvent;
         
         public void Init()
         {
             var mouseOverCardBuilder = new EventBinding<MouseOverCardEvent>.Builder();
             var mouseLeftCardBuilder = new EventBinding<MouseLeftCardEvent>.Builder();
+            var leftBuildingModeBuilder = new EventBinding<LeftBuildingMode>.Builder();
 
             _mouseOverCardEvent = mouseOverCardBuilder.WithAction(PlayMouseOverCardSound).Build();
             _mouseLeftCardEvent = mouseLeftCardBuilder.WithAction(PlayMouseLeftCardSound).Build();
+            _leftBuildingModeEvent = leftBuildingModeBuilder.WithAction(PlayLeftBuildingModeSound).Build();
 
             EventBus<MouseOverCardEvent>.Subscribe(_mouseOverCardEvent);
             EventBus<MouseLeftCardEvent>.Subscribe(_mouseLeftCardEvent);
+            EventBus<LeftBuildingMode>.Subscribe(_leftBuildingModeEvent);
         }
 
         public void Dispose()
         {
             EventBus<MouseOverCardEvent>.Unsubscribe(_mouseOverCardEvent);
             EventBus<MouseLeftCardEvent>.Unsubscribe(_mouseLeftCardEvent);
+            EventBus<LeftBuildingMode>.Unsubscribe(_leftBuildingModeEvent);
         }
 
         private void PlayMouseOverCardSound()
@@ -52,6 +57,14 @@ namespace CityBuilder.Game.Sfx
             var availableSlot = GetAvailableSlot();
             availableSlot.clip = _runtimeDataProvider.UiSoundsStorage.MouseLeftCardSounds.Random();
             
+            availableSlot.Play();
+        }
+        
+        private void PlayLeftBuildingModeSound()
+        {
+            var availableSlot = GetAvailableSlot();
+            availableSlot.clip = _runtimeDataProvider.UiSoundsStorage.BuildingPlacedSounds.Random();
+
             availableSlot.Play();
         }
         

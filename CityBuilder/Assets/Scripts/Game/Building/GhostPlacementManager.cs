@@ -1,4 +1,7 @@
-﻿using CityBuilder.Spawnables.Scene;
+﻿using CityBuilder.Core.EventBuses;
+using CityBuilder.Core.EventBuses.Events;
+using CityBuilder.Spawnables.Scene;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CityBuilder.Game.Building
@@ -6,9 +9,7 @@ namespace CityBuilder.Game.Building
     public class GhostPlacementManager : MonoBehaviour
     {
         private const float DEFAULT_HEIGHT_OFFSET = 3;
-        
-        [SerializeField] private bool _canBePlaced;
-        
+
         private BuildingSpawnable _currentBuilding;
         private UnityEngine.Camera _mainCamera;
 
@@ -27,6 +28,7 @@ namespace CityBuilder.Game.Building
             }
 
             _currentBuilding = building;
+            _currentBuilding.ShowRaycastRadius();
         }
 
         private void Update()
@@ -37,6 +39,12 @@ namespace CityBuilder.Game.Building
                 if (CheckPlace())
                 {
                     PlaceBuilding();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Destroy(_currentBuilding.gameObject);
+                    EventBus<LeftBuildingMode>.Publish(new LeftBuildingMode());
                 }
             }
         }
@@ -64,8 +72,9 @@ namespace CityBuilder.Game.Building
         {
             if (Physics.Raycast(_currentBuilding.transform.position, Vector3.down, out var hit))
             {
+                _currentBuilding.transform.DOJump(hit.point, 0.6f, 2, 0.2f);
                 _currentBuilding.UpdateModelGhostState(false, true);
-                _currentBuilding.transform.position = hit.point;
+                _currentBuilding.Place();
             }
             _currentBuilding = null;
         }

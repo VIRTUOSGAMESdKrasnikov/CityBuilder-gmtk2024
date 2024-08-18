@@ -6,6 +6,8 @@ namespace CityBuilder.ScoreCalculators
     public abstract class ScoreCalculatorBase : ScriptableObject
     {
         [SerializeField] protected int _targetResourceId;
+
+        public int TargetResourceId => _targetResourceId;
         
         public int GetScore(Transform transform, float range)
         {

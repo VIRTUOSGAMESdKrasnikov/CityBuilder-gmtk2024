@@ -29,4 +29,14 @@
             Ignore = ignore;
         }
     }
+
+    public class EnteredBuildingMode : IEvent
+    {
+        public EnteredBuildingMode(){}
+    }
+    
+    public class LeftBuildingMode : IEvent
+    {
+        public LeftBuildingMode(){}
+    }
 }
