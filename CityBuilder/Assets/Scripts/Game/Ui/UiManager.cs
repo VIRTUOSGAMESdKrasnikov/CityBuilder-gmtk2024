@@ -4,6 +4,7 @@ using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Bindings;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Interfaces;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,8 @@ namespace CityBuilder.Game.Ui
     {
         [SerializeField] private DeckController _deckController;
 
+        [SerializeField] private TextMeshProUGUI _quitPlacementModeText;
+        
         [Inject] private GameManager _gameManager;
         [Inject] private IRuntimeDataProvider _runtimeDataProvider;
         
@@ -20,6 +23,8 @@ namespace CityBuilder.Game.Ui
         
         public void Init()
         {
+            _quitPlacementModeText.gameObject.SetActive(false);
+
             var builder = new EventBinding<CardClickedEvent>.Builder();
             _cardClickedEvent = builder.WithAction(OnCardClicked).Build();
 
@@ -32,11 +37,16 @@ namespace CityBuilder.Game.Ui
         {
             EventBus<CardClickedEvent>.Unsubscribe(_cardClickedEvent);
         }
+
+        public void LeftBuildingMode()
+        {
+            _quitPlacementModeText.gameObject.SetActive(false);
+        }
         
         private void OnCardClicked(CardClickedEvent @event)
         {
             _gameManager.OnUiCardClicked(@event.ClickedId);
-            Debug.Log($"card with id {@event.ClickedId} clicked");
+            _quitPlacementModeText.gameObject.SetActive(true);
         }
     }
 }

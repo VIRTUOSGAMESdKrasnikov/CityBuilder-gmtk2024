@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using CityBuilder.Core.EventBuses;
+using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Interfaces;
 using CityBuilder.ScoreCalculators;
 using CityBuilder.Utils;
@@ -49,7 +51,18 @@ namespace CityBuilder.Spawnables.Scene
             _model.UpdateModelGhostState(isGhost, canBePlaced);
         }
 
-        public void BookCollectables()
+        public void Place()
+        {
+            SendPlacedEvent();
+            BookCollectables();
+        }
+
+        private void SendPlacedEvent()
+        {
+            EventBus<LeftBuildingMode>.Publish(new LeftBuildingMode());
+        }
+
+        private void BookCollectables()
         {
             var nearbyResources = Physics.OverlapBox(
                 transform.position,

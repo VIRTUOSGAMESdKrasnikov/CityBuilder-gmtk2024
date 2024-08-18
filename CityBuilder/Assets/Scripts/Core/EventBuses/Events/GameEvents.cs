@@ -29,4 +29,9 @@
             Ignore = ignore;
         }
     }
+
+    public class LeftBuildingMode : IEvent
+    {
+        public LeftBuildingMode(){}
+    }
 }

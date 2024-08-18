@@ -1,4 +1,6 @@
-﻿using CityBuilder.Spawnables.Scene;
+﻿using CityBuilder.Core.EventBuses;
+using CityBuilder.Core.EventBuses.Events;
+using CityBuilder.Spawnables.Scene;
 using UnityEngine;
 
 namespace CityBuilder.Game.Building
@@ -42,6 +44,7 @@ namespace CityBuilder.Game.Building
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     Destroy(_currentBuilding.gameObject);
+                    EventBus<LeftBuildingMode>.Publish(new LeftBuildingMode());
                 }
             }
         }
@@ -71,7 +74,7 @@ namespace CityBuilder.Game.Building
             {
                 _currentBuilding.transform.position = hit.point;
                 _currentBuilding.UpdateModelGhostState(false, true);
-                _currentBuilding.BookCollectables();
+                _currentBuilding.Place();
             }
             _currentBuilding = null;
         }

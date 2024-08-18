@@ -14,5 +14,10 @@ namespace CityBuilder.Game
         {
             _buildingManager.SpawnBuilding(id);
         }
+
+        public void LeftBuildingMode()
+        {
+            _uiManager.LeftBuildingMode();
+        }
     }
 }
