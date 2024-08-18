@@ -215,6 +215,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _scorePerStep: 5
+  _renderers:
+  - {fileID: 682595971208467752}
+  - {fileID: 5896425269522178221}
+  _defaultMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  _takenBuildingModeMaterial: {fileID: 2100000, guid: 128c58322479a70499777cb38cbb6ccc, type: 2}
+  _availableBuildingModeMaterial: {fileID: 2100000, guid: 0b98194495d24f94dba5319b9ab2eb46, type: 2}
 --- !u!65 &6703098636608020310
 BoxCollider:
   m_ObjectHideFlags: 0

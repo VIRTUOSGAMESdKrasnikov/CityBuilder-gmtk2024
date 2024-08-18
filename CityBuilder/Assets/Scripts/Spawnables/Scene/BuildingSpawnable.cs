@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using CityBuilder.Core.EventBuses;
+using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Interfaces;
 using CityBuilder.ScoreCalculators;
 using CityBuilder.Utils;
@@ -10,6 +12,8 @@ namespace CityBuilder.Spawnables.Scene
 {
     public class BuildingSpawnable : SceneSpawnable
     {
+        [SerializeField] private Transform _radiusShower;
+        
         [SerializeField] protected float _range;
         [SerializeField] private ScoreCalculatorBase _scoreCalculator;
         
@@ -34,6 +38,14 @@ namespace CityBuilder.Spawnables.Scene
             return true;
         }
 
+        public void ShowRaycastRadius()
+        {
+            _radiusShower.gameObject.SetActive(true);
+
+            _radiusShower.localScale = Vector3.one * _range;
+            _radiusShower.localPosition = Vector3.zero;
+        }
+        
         public bool CanBePlaced()
         {
             if (_scoreCalculator is not HouseCalculator)
@@ -47,6 +59,39 @@ namespace CityBuilder.Spawnables.Scene
         public void UpdateModelGhostState(bool isGhost, bool canBePlaced)
         {
             _model.UpdateModelGhostState(isGhost, canBePlaced);
+        }
+
+        public void Place()
+        {
+            _radiusShower.gameObject.SetActive(false);
+            
+            SendPlacedEvent();
+            BookCollectables();
+        }
+
+        private void SendPlacedEvent()
+        {
+            EventBus<LeftBuildingMode>.Publish(new LeftBuildingMode());
+        }
+
+        private void BookCollectables()
+        {
+            var nearbyResources = Physics.OverlapBox(
+                transform.position,
+                new Vector3(_range / 2, 100, _range / 2),
+                Quaternion.identity,
+                LayerMask.GetMask("Collectable"));
+
+            foreach (var collider in nearbyResources)
+            {
+                if (collider.TryGetComponent<ICollectable>(out var collectable))
+                {
+                    if (collectable.Id == _scoreCalculator.TargetResourceId)
+                    {
+                        collectable.IsTaken = true;
+                    }
+                }
+            }
         }
     }
 }
