@@ -158,10 +158,9 @@ namespace CityBuilder.Game.Camera
                 Time.deltaTime * _orbitalCameraDataStorage.ZoomSmoothness);
         }
 
-        // TODO: x should not be magic number.
         private void ApplyRotation()
         {
-            var newRotation = Quaternion.Euler(45f, _yRotation, 0f);
+            var newRotation = Quaternion.Euler(_orbitalCameraDataStorage.XRotation, _yRotation, 0f);
             _orbitalRig.rotation =
                 Quaternion.Slerp(_orbitalRig.rotation, newRotation,
                     Time.deltaTime * _orbitalCameraDataStorage.RotationSmoothness);
