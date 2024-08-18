@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6948675578583443345}
   - component: {fileID: 5302244446485780059}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SmallBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using CityBuilder.DataStorage;
+﻿using System.Linq;
+using CityBuilder.DataStorage;
 using CityBuilder.DataStorage.Storageables;
 using CityBuilder.Interfaces;
 using CityBuilder.Spawnables.Scene;
@@ -10,6 +11,8 @@ namespace CityBuilder.Game.Building
 {
     public class BuildingManager : MonoBehaviour
     {
+        [SerializeField] private GhostPlacementManager _placementManager;
+        
         [Inject] private DiContainer _container;
         [Inject] private IRuntimeDataProvider _runtimeDataProvider;
         
@@ -23,7 +26,8 @@ namespace CityBuilder.Game.Building
         
         public async void SpawnBuilding(int id)
         {
-            await _spawner.Spawn(new[] { id });
+            var spawnedBuilding = await _spawner.Spawn(new[] { id });
+            _placementManager.SetCurrentBuilding(spawnedBuilding.FirstOrDefault());
         }
     }
 }
