@@ -7,5 +7,6 @@ namespace CityBuilder.DataStorage
     {
         [field:SerializeField] public AudioClip[] MouseOverCardSounds { get; private set; }
         [field:SerializeField] public AudioClip[] MouseLeftCardSounds { get; private set; }
+        [field:SerializeField] public AudioClip[] BuildingPlacedSounds { get; private set; }
     }
 }

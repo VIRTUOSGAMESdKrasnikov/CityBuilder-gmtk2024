@@ -86,7 +86,10 @@ namespace CityBuilder.Spawnables.Scene
             {
                 if (collider.TryGetComponent<ICollectable>(out var collectable))
                 {
-                    collectable.IsTaken = true;
+                    if (collectable.Id == _scoreCalculator.TargetResourceId)
+                    {
+                        collectable.IsTaken = true;
+                    }
                 }
             }
         }

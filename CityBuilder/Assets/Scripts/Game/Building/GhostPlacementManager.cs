@@ -1,6 +1,7 @@
 ﻿using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Spawnables.Scene;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CityBuilder.Game.Building
@@ -71,7 +72,7 @@ namespace CityBuilder.Game.Building
         {
             if (Physics.Raycast(_currentBuilding.transform.position, Vector3.down, out var hit))
             {
-                _currentBuilding.transform.position = hit.point;
+                _currentBuilding.transform.DOJump(hit.point, 0.5f, 2, 0.2f);
                 _currentBuilding.UpdateModelGhostState(false, true);
                 _currentBuilding.Place();
             }
