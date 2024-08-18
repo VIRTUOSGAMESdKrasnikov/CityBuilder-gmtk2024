@@ -10,6 +10,7 @@ namespace CityBuilder.Spawnables.Scene
 {
     public class BuildingSpawnable : SceneSpawnable
     {
+        [SerializeField] protected float _range;
         [SerializeField] private ScoreCalculatorBase _scoreCalculator;
         
         [Inject] private IRuntimeDataProvider _runtimeDataProvider;
@@ -37,8 +38,7 @@ namespace CityBuilder.Spawnables.Scene
         {
             if (_scoreCalculator is not HouseCalculator)
             {
-                Debug.Log($"for building {name} got score {_scoreCalculator.GetScore(transform)}");
-                return _scoreCalculator.GetScore(transform) > 0;
+                return _scoreCalculator.GetScore(transform, _range) > 0;
             }
 
             return true;

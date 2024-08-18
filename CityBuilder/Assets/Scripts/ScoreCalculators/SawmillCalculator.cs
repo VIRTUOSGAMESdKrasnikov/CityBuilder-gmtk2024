@@ -11,8 +11,6 @@ namespace CityBuilder.ScoreCalculators
 
         protected override int EvaluateObject(Collider collider)
         {
-            Debug.Log($"validating item {collider.name}");
-            
             if (collider.TryGetComponent<ICollectable>(out var collectable))
             {
                 if (collectable.Id == _targetResourceId && !collectable.IsTaken)

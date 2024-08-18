@@ -5,12 +5,11 @@ namespace CityBuilder.ScoreCalculators
 {
     public abstract class ScoreCalculatorBase : ScriptableObject
     {
-        [SerializeField] protected float _range;
         [SerializeField] protected int _targetResourceId;
         
-        public int GetScore(Transform transform)
+        public int GetScore(Transform transform, float range)
         {
-            return GetScore(Physics.OverlapBox(transform.position, new Vector3(_range / 2, 100, _range / 2), Quaternion.identity, LayerMask.GetMask("Collectable")));
+            return GetScore(Physics.OverlapBox(transform.position, new Vector3(range / 2, 100, range / 2), Quaternion.identity, LayerMask.GetMask("Collectable")));
         }
 
         private int GetScore(IEnumerable<Collider> objects)
