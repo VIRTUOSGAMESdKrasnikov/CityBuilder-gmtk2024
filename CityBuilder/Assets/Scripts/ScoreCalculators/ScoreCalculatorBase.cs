@@ -9,7 +9,15 @@ namespace CityBuilder.ScoreCalculators
         
         public int GetScore(Transform transform, float range)
         {
-            return GetScore(Physics.OverlapBox(transform.position, new Vector3(range / 2, 100, range / 2), Quaternion.identity, LayerMask.GetMask("Collectable")));
+            bool hasHouseNear = Physics.OverlapBox(transform.position, new Vector3(range / 2, 100, range / 2), Quaternion.identity,
+                LayerMask.GetMask("House")).Length > 0;
+
+            if (hasHouseNear)
+            {
+                return GetScore(Physics.OverlapBox(transform.position, new Vector3(range / 2, 100, range / 2), Quaternion.identity, LayerMask.GetMask("Collectable")));
+            }
+
+            return 0;
         }
 
         private int GetScore(IEnumerable<Collider> objects)
