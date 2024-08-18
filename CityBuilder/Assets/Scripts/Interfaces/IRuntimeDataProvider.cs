@@ -1,4 +1,5 @@
 ﻿using CityBuilder.DataStorage;
+using CityBuilder.Game.Deck;
 
 namespace CityBuilder.Interfaces
 {
@@ -9,5 +10,8 @@ namespace CityBuilder.Interfaces
         public UiCardsStorage UiCardsStorage { get; }
         public UiSoundsStorage UiSoundsStorage { get; }
         public OrbitalCameraStorage OrbitalCameraStorage { get; }
+        public BuildingsDataStorage BuildingsDataStorage { get; }
+        public PlayerDeck PlayerDeck { get; set; }
+        public CursorStates CursorStates { get; }
     }
 }

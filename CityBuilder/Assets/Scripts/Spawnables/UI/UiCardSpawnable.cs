@@ -9,19 +9,38 @@ namespace CityBuilder.Spawnables.UI
 {
     public class UiCardSpawnable : UiSpawnable
     {
+        public int Id { get; private set; }
+        
         [SerializeField] private CardTurnController _cardTurnController;
         [SerializeField] private SelectableCard _selectableCard;
-        
+
+        [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private TextMeshProUGUI _description;
 
         public override async UniTask<bool> Spawn(int id)
         {
+            Id = id;
+            
             _cardTurnController.OpenBackFace(true);
             _selectableCard.SetId(id);
 
             return true;
+        }
+
+        public void SetInteractable(bool interactable)
+        {
+            if (interactable)
+            {
+                _cardTurnController.OpenFrontFace();
+            }
+            else
+            {
+                _cardTurnController.OpenBackFace();
+            }
+
+            _canvasGroup.blocksRaycasts = interactable;
         }
     }
 }

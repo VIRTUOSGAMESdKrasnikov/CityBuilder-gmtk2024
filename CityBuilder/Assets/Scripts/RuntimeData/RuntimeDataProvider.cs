@@ -1,5 +1,6 @@
 ﻿using CityBuilder.DataStorage;
 using CityBuilder.Interfaces;
+using CityBuilder.Game.Deck;
 using UnityEngine;
 
 namespace CityBuilder.RuntimeData
@@ -11,11 +12,18 @@ namespace CityBuilder.RuntimeData
         [SerializeField] private UiCardsStorage _uiCardStorage;
         [SerializeField] private UiSoundsStorage _uiSoundsStorage;
         [SerializeField] private OrbitalCameraStorage _orbitalCameraStorage;
-
+        [SerializeField] private BuildingsDataStorage _buildingsDataStorage;
+        [SerializeField] private CursorStates _cursorStates;
+        
         public SpawnableDataStorage BuildingsStorage => _buildingsStorage;
         public ModelDataStorage ModelStorage => _modelsStorage;
         public UiCardsStorage UiCardsStorage => _uiCardStorage;
         public UiSoundsStorage UiSoundsStorage => _uiSoundsStorage;
+        
+        public BuildingsDataStorage BuildingsDataStorage => _buildingsDataStorage;
+        public PlayerDeck PlayerDeck { get; set; }
+        public CursorStates CursorStates => _cursorStates;
         public OrbitalCameraStorage OrbitalCameraStorage => _orbitalCameraStorage;
+        
     }
 }
