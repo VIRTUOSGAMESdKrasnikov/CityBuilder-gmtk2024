@@ -35,11 +35,11 @@ namespace CityBuilder.Game
             _isCounting = false;
         }
 
-        private void CountingAsync()
+        private async void CountingAsync()
         {
             while (_isCounting)
             {
-                UniTask.WaitForSeconds(_runtimeDataProvider.RulesStorage.StepDurationInSeconds);
+                await UniTask.WaitForSeconds(_runtimeDataProvider.RulesStorage.StepDurationInSeconds);
                 Stepped?.Invoke();
             }
         }
