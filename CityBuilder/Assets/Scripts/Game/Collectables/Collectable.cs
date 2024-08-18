@@ -1,4 +1,5 @@
 ﻿using CityBuilder.Interfaces;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace CityBuilder.Game.Collectables
@@ -45,7 +46,7 @@ namespace CityBuilder.Game.Collectables
             }
         }
 
-        [ContextMenu("AutoFindChildRenderers")]
+        [Button]
         private void AutoFindChildRenderers()
         {
             _renderers = GetComponentsInChildren<MeshRenderer>();

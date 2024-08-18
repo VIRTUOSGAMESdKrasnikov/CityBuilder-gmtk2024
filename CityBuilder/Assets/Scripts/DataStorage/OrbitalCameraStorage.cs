@@ -1,22 +1,46 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CityBuilder.DataStorage
 {
     [CreateAssetMenu(fileName = "OrbitalCameraStorage", menuName = "Config/OrbitalCameraStorage", order = 0)]
     public class OrbitalCameraStorage : ScriptableObject
     {
-        [field: SerializeField] public float XRotation { get; private set; } = 45f;
-        [field: SerializeField] public float MovementKeyboardSpeed { get; private set; } = 20f;
-        [field: SerializeField] public float MovementMouseSensitivity { get; private set; } = .3f;
-        [field: SerializeField] public float MovementSmoothness { get; private set; } = 50f;
+        [TitleGroup("Movement")] [SerializeField]
+        private float movementKeyboardSpeed = 20f;
 
-        [field: SerializeField] public float RotationKeyboardSpeed { get; private set; } = 70f;
-        [field: SerializeField] public float RotationMouseSensitivity { get; private set; } = .15f;
-        [field: SerializeField] public float RotationSmoothness { get; private set; } = 30f;
+        [SerializeField] private float movementMouseSensitivity = .3f;
 
-        [field: SerializeField] public float ZoomSmoothness { get; private set; } = 50f;
-        [field: SerializeField] public float MaxZoomSize { get; private set; } = 30f;
-        [field: SerializeField] public float MinZoomSize { get; private set; } = 5f;
-        [field: SerializeField] public float ZoomStepsCount { get; private set; } = 20f;
+        [SerializeField] private float movementSmoothness = 50f;
+
+        [TitleGroup("Rotation")] [SerializeField]
+        private float rotationKeyboardSpeed = 70f;
+
+        [SerializeField] private float rotationMouseSensitivity = .15f;
+
+        [SerializeField] private float rotationSmoothness = 30f;
+
+        [SerializeField] private float xRotation = 45f;
+
+        [TitleGroup("Zoom")] [SerializeField] private float zoomSmoothness = 50f;
+
+        [SerializeField] private float maxZoomSize = 30f;
+
+        [SerializeField] private float minZoomSize = 5f;
+
+        [SerializeField] private float zoomStepsCount = 20f;
+
+        public float MovementKeyboardSpeed => movementKeyboardSpeed;
+        public float MovementMouseSensitivity => movementMouseSensitivity;
+        public float MovementSmoothness => movementSmoothness;
+        public float RotationKeyboardSpeed => rotationKeyboardSpeed;
+        public float RotationMouseSensitivity => rotationMouseSensitivity;
+        public float RotationSmoothness => rotationSmoothness;
+        public float XRotation => xRotation;
+        public float ZoomSmoothness => zoomSmoothness;
+        public float MaxZoomSize => maxZoomSize;
+        public float MinZoomSize => minZoomSize;
+        public float ZoomStepsCount => zoomStepsCount;
     }
 }

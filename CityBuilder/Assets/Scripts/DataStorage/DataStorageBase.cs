@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using CityBuilder.Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CityBuilder.DataStorage
 {
     public abstract class DataStorageBase<T> : ScriptableObject where T : IStorageable
     {
-        [SerializeField] private T[] _storageables;
+        [FormerlySerializedAs("_storageables")] [SerializeField] private T[] storageables;
 
         public bool TryGetItem(int id, out T item)
         {
-            foreach (var storageable in _storageables)
+            foreach (var storageable in storageables)
             {
                 if (storageable.ID == id)
                 {
@@ -25,7 +26,7 @@ namespace CityBuilder.DataStorage
 
         public IEnumerable<T> GetAllStorageables()
         {
-            foreach (T storageable in _storageables)
+            foreach (T storageable in storageables)
             {
                 yield return storageable;
             }
