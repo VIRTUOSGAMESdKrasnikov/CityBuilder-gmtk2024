@@ -17,7 +17,6 @@ namespace CityBuilder.Spawnables.UI
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _name;
-        [SerializeField] private TextMeshProUGUI _description;
 
         public override async UniTask<bool> Spawn(int id)
         {
