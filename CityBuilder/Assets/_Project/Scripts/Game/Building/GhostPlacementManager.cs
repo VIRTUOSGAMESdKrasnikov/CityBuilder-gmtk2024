@@ -1,4 +1,5 @@
-﻿using CityBuilder.Core.EventBuses;
+﻿using System;
+using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Spawnables.Scene;
 using DG.Tweening;
@@ -89,14 +90,10 @@ namespace CityBuilder.Game.Building
         private bool IsEnoughPlace()
         {
             if (_hit.transform == null)
-            {
                 return false;
-            }
 
             if (_hit.transform.gameObject.layer == 6)
-            {
                 return true;
-            }
 
             return false;
         }

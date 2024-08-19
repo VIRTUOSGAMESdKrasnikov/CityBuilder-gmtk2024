@@ -10,6 +10,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5841880752402679060, guid: 8ff1b8fcb0c6c48499a2fc528b933573, type: 3}
       propertyPath: _range
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5841880752402679060, guid: 8ff1b8fcb0c6c48499a2fc528b933573, type: 3}
+      propertyPath: _radius
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5841880752402679060, guid: 8ff1b8fcb0c6c48499a2fc528b933573, type: 3}
@@ -58,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7593641355057215270, guid: 8ff1b8fcb0c6c48499a2fc528b933573, type: 3}
       propertyPath: m_Name
-      value: SawmillBuilding Variant
+      value: SawmillBuilding
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

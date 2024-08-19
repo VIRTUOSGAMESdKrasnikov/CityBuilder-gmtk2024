@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CityBuilder.Core;
 using UnityEngine;
 
 namespace CityBuilder.ScoreCalculators
@@ -9,15 +10,11 @@ namespace CityBuilder.ScoreCalculators
 
         public int TargetResourceId => _targetResourceId;
         
-        public int GetScore(Transform transform, float range)
+        public int GetScore(Transform transform, float radius)
         {
-            bool hasHouseNear = Physics.OverlapBox(transform.position, new Vector3(range / 2, 100, range / 2), Quaternion.identity,
-                LayerMask.GetMask("House")).Length > 0;
-
+            bool hasHouseNear = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask(Constants.HOUSE_LAYER_NAME)).Length > 0;
             if (hasHouseNear)
-            {
-                return GetScore(Physics.OverlapBox(transform.position, new Vector3(range / 2, 100, range / 2), Quaternion.identity, LayerMask.GetMask("Collectable")));
-            }
+                return GetScore(Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask(Constants.COLLECTABLE_LAYER_NAME)));
 
             return 0;
         }
@@ -26,10 +23,8 @@ namespace CityBuilder.ScoreCalculators
         {
             int score = 0;
 
-            foreach (var collider in objects)
-            {
+            foreach (var collider in objects) 
                 score += EvaluateObject(collider);
-            }
 
             return score;
         }

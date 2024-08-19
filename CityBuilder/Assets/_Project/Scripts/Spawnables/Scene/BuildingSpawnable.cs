@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CityBuilder.Core;
 using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Interfaces;
@@ -15,13 +16,13 @@ namespace CityBuilder.Spawnables.Scene
         [SerializeField] private Transform _radiusShower;
         [SerializeField] private ParticleSystem _onPlaceParticles;
 
-        [SerializeField] protected float _range;
+        [SerializeField] protected float _radius;
         [SerializeField] private ScoreCalculatorBase _scoreCalculator;
 
         [Inject] private IRuntimeDataProvider _runtimeDataProvider;
 
         public bool IsModelVisible => _model.IsVisible;
-        
+
         private BuildingModelSpawnable _model;
 
 
@@ -48,16 +49,14 @@ namespace CityBuilder.Spawnables.Scene
         {
             _radiusShower.gameObject.SetActive(true);
 
-            _radiusShower.localScale = Vector3.one * _range;
+            _radiusShower.localScale = Vector3.one * _radius * 2f;
             _radiusShower.localPosition = Vector3.zero;
         }
 
         public bool CanBePlaced()
         {
             if (_scoreCalculator is not HouseCalculator)
-            {
-                return _scoreCalculator.GetScore(transform, _range) > 0;
-            }
+                return _scoreCalculator.GetScore(transform, _radius) > 0;
 
             return true;
         }
@@ -88,7 +87,7 @@ namespace CityBuilder.Spawnables.Scene
             BookCollectables();
         }
 
-        public int GetScore() => _scoreCalculator.GetScore(transform, _range);
+        public int GetScore() => _scoreCalculator.GetScore(transform, _radius);
 
         private void SendPlacedEvent()
         {
@@ -98,28 +97,26 @@ namespace CityBuilder.Spawnables.Scene
 
         private void BookCollectables()
         {
-            var nearbyResources = Physics.OverlapBox(
-                transform.position,
-                new Vector3(_range / 2, 100, _range / 2),
-                Quaternion.identity,
-                LayerMask.GetMask("Collectable"));
+            var nearbyResources = Physics.OverlapSphere(
+                transform.position, _radius,
+                LayerMask.GetMask(Constants.COLLECTABLE_LAYER_NAME));
 
             foreach (var collider in nearbyResources)
-            {
                 if (collider.TryGetComponent<ICollectable>(out var collectable))
-                {
                     if (collectable.Id == _scoreCalculator.TargetResourceId)
-                    {
                         collectable.IsTaken = true;
-                    }
-                }
-            }
         }
 
         public void SetCollidersActivation(bool isActive)
         {
             var colls = gameObject.GetComponentsInChildren<Collider>();
             foreach (var coll in colls) coll.enabled = isActive;
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(_radiusShower.transform.position, _radius);
         }
     }
 }
