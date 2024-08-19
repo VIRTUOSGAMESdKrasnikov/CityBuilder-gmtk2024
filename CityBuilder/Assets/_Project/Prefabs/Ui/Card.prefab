@@ -131,7 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeae9d2c0b65490ea02dcf46fc79ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardTurnController: {fileID: 4248613630009486361}
 --- !u!1 &156388650530900042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,8 +1045,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 498.74997, y: -448.8}
-  m_SizeDelta: {x: 997.49994, y: 224.4}
+  m_AnchoredPosition: {x: 960, y: -864}
+  m_SizeDelta: {x: 1920, y: 432}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5580804105661323315
 MonoBehaviour:
@@ -1215,7 +1214,7 @@ GameObject:
   - component: {fileID: 2707479176008838525}
   - component: {fileID: 6128301079065178522}
   m_Layer: 0
-  m_Name: Details
+  m_Name: Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1463,8 +1462,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 498.74997, y: -168.29999}
-  m_SizeDelta: {x: 997.49994, y: 336.59998}
+  m_AnchoredPosition: {x: 960, y: -324}
+  m_SizeDelta: {x: 1920, y: 648}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3098198024443365236
 MonoBehaviour:
