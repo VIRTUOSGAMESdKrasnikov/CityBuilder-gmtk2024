@@ -30,7 +30,8 @@ namespace CityBuilder.Game.Collectables
                 if (value)
                 {
                     _contextTooltip.gameObject.SetActive(true);
-                    _contextTooltip.transform.DOMoveY(transform.position.y + 2f, 2f);
+                    _contextTooltip.transform.DOMoveY(transform.position.y + 2f, 2f)
+                        .OnComplete(() => _contextTooltip.gameObject.SetActive(false));
                     _contextTooltip.DOColor(Color.clear, 2f);
                 }   
             }
