@@ -37,14 +37,11 @@ namespace CityBuilder.Spawnables.Scene
             if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
             {
                 // somehow webgl cant properly run InstantiateAsync (maybe javascript)
-#if UNITY_WEBGL
                 _model = Instantiate(model.Spawnables.FirstOrDefault(), transform) as BuildingModelSpawnable;
-#else
-                var modelInstantiateProcess = InstantiateAsync(model.Spawnables.FirstOrDefault(), transform);
-                await modelInstantiateProcess;
-
-                _model = modelInstantiateProcess.Result.FirstOrDefault() as BuildingModelSpawnable;
-#endif
+                // var modelInstantiateProcess = InstantiateAsync(model.Spawnables.FirstOrDefault(), transform);
+                // await modelInstantiateProcess;
+                //
+                // _model = modelInstantiateProcess.Result.FirstOrDefault() as BuildingModelSpawnable;
             }
             else
             {
