@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d64012294904a679691e1f21a82526f, type: 3}
   m_Name: SawmillCalculator
   m_EditorClassIdentifier: 
-  _range: 5
-  _targetResourceId: 0
+  _targetResourceId: 1

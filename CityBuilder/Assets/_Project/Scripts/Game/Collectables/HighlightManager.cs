@@ -7,7 +7,7 @@ namespace CityBuilder.Game.Collectables
 {
     public class HighlightManager : MonoBehaviour
     {
-        private Collectable[] _levelResources;
+        private Collectable[] _levelCollectables;
         private EventBinding<EnteredBuildingMode> _enteredBuildingModeEvent;
         private EventBinding<LeftBuildingMode> _leftBuildingModeEvent;
 
@@ -34,18 +34,18 @@ namespace CityBuilder.Game.Collectables
         // TODO: need to be called each island init.
         private void FindResources()
         {
-            _levelResources = FindObjectsOfType<Collectable>();
+            _levelCollectables = FindObjectsOfType<Collectable>();
         }
 
-        private void OnEnteredBuildingMode()
+        private void OnEnteredBuildingMode(EnteredBuildingMode enteredBuildingMode)
         {
-            foreach (var resource in _levelResources)
-                resource.ChangeView(true);
+            foreach (var resource in _levelCollectables)
+                resource.ChangeView(resource.Id == enteredBuildingMode.BuildingSpawnable.COLLECTABLE_ID);
         }
 
         private void OnLeftBuildingMode()
         {
-            foreach (var resource in _levelResources)
+            foreach (var resource in _levelCollectables)
                 resource.ChangeView(false);
         }
     }

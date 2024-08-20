@@ -58,8 +58,10 @@ namespace CityBuilder.Core.EventBuses.Events
 
     public class EnteredBuildingMode : IEvent
     {
-        public EnteredBuildingMode()
+        public BuildingSpawnable BuildingSpawnable { get; private set; }
+        public EnteredBuildingMode(BuildingSpawnable buildingSpawnable)
         {
+            BuildingSpawnable = buildingSpawnable;
         }
     }
 

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Spawnables.Scene;
@@ -15,6 +15,7 @@ namespace CityBuilder.Game.Building
         private UnityEngine.Camera _mainCamera;
 
         private RaycastHit _hit;
+        private HouseLivingArea[] _livingHouses;
 
         private void Awake()
         {
@@ -27,7 +28,7 @@ namespace CityBuilder.Game.Building
                 Destroy(_currentBuilding.gameObject);
 
             _currentBuilding = building;
-            _currentBuilding.ShowRaycastRadius();
+            _currentBuilding.ShowRadius();
             _currentBuilding.SetCollidersActivation(false);
         }
 
@@ -36,10 +37,9 @@ namespace CityBuilder.Game.Building
             if (_currentBuilding != null)
             {
                 MoveBuilding();
-                if (CheckPlace())
-                {
-                    PlaceBuilding();
-                }
+                var isPlaceSuitable = CheckPlace();
+                _currentBuilding.UpdateModelGhostState(true, isPlaceSuitable);
+                if (Input.GetMouseButtonDown(0) && isPlaceSuitable) PlaceBuilding();
 
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -69,9 +69,11 @@ namespace CityBuilder.Game.Building
             bool enoughSpaceAndIsOnMap = IsEnoughPlace();
             bool enoughScore = _currentBuilding.CanBePlaced();
 
-            _currentBuilding.UpdateModelGhostState(true, enoughSpaceAndIsOnMap && enoughScore);
+            // ID 0 is house.
+            bool houseIsNear = _currentBuilding.ID == 0 ||
+                               _livingHouses.Any(x => x.IsSuitablePlace(_currentBuilding.transform));
 
-            return enoughScore && enoughSpaceAndIsOnMap && Input.GetMouseButtonDown(0);
+            return houseIsNear && enoughScore && enoughSpaceAndIsOnMap;
         }
 
         private void PlaceBuilding()
@@ -82,6 +84,7 @@ namespace CityBuilder.Game.Building
                 _currentBuilding.UpdateModelGhostState(false, true);
                 _currentBuilding.Place();
                 _currentBuilding.SetCollidersActivation(true);
+                _livingHouses = FindObjectsOfType<HouseLivingArea>();
             }
 
             _currentBuilding = null;

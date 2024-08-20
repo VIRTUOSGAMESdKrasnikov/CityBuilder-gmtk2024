@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4479148cdfa8419e8716531daaf5f695, type: 3}
   m_Name: ResourcesIdStorage
   m_EditorClassIdentifier: 
-  <WoodId>k__BackingField: 0
-  <StoneId>k__BackingField: 1
+  <WoodId>k__BackingField: 1
+  <StoneId>k__BackingField: 2

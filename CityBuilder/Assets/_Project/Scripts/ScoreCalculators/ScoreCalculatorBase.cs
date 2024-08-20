@@ -9,21 +9,18 @@ namespace CityBuilder.ScoreCalculators
         [SerializeField] protected int _targetResourceId;
 
         public int TargetResourceId => _targetResourceId;
-        
+
         public int GetScore(Transform transform, float radius)
         {
-            bool hasHouseNear = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask(Constants.HOUSE_LAYER_NAME)).Length > 0;
-            if (hasHouseNear)
-                return GetScore(Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask(Constants.COLLECTABLE_LAYER_NAME)));
-
-            return 0;
+            return GetScore(Physics.OverlapSphere(transform.position, radius,
+                LayerMask.GetMask(Constants.COLLECTABLE_LAYER_NAME)));
         }
 
         private int GetScore(IEnumerable<Collider> objects)
         {
             int score = 0;
 
-            foreach (var collider in objects) 
+            foreach (var collider in objects)
                 score += EvaluateObject(collider);
 
             return score;

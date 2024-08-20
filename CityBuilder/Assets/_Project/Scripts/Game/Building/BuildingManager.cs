@@ -46,7 +46,7 @@ namespace CityBuilder.Game.Building
             var spawnedBuilding = await _spawner.Spawn(new[] { id });
             _placementManager.SetCurrentBuilding(spawnedBuilding.FirstOrDefault());
 
-            EventBus<EnteredBuildingMode>.Publish(new EnteredBuildingMode());
+            EventBus<EnteredBuildingMode>.Publish(new EnteredBuildingMode(spawnedBuilding.FirstOrDefault()));
         }
 
         private void OnLeftBuildingMode()

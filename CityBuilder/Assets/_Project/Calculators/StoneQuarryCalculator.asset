@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2658f29abc4879ab7cb4a6cd39df24, type: 3}
   m_Name: StoneQuarryCalculator
   m_EditorClassIdentifier: 
-  _range: 5
-  _targetResourceId: 1
+  _targetResourceId: 2
