@@ -72,6 +72,13 @@ namespace CityBuilder.Core.EventBuses.Events
         }
     }
 
+    public class ErrorClickedEvent : IEvent
+    {
+        public ErrorClickedEvent()
+        {
+        }
+    }
+    
     public class PlacedBuildingEvent : IEvent
     {
         public BuildingSpawnable BuildingSpawnable { get; private set; }
