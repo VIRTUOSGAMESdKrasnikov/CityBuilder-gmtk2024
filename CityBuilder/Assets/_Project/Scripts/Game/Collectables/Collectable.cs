@@ -23,33 +23,18 @@ namespace CityBuilder.Game.Collectables
             if (isInBuildingMode)
             {
                 if (IsTaken)
-                {
                     foreach (var renderer in _renderers)
-                    {
                         renderer.material = _takenBuildingModeMaterial;
-                    }
-                }
                 else
-                {
                     foreach (var renderer in _renderers)
-                    {
                         renderer.material = _availableBuildingModeMaterial;
-                    }
-                }
             }
             else
-            {
                 foreach (var renderer in _renderers)
-                {
                     renderer.material = _defaultMaterial;
-                }
-            }
         }
 
         [Button]
-        private void AutoFindChildRenderers()
-        {
-            _renderers = GetComponentsInChildren<MeshRenderer>();
-        }
+        private void AutoFindChildRenderers() => _renderers = GetComponentsInChildren<MeshRenderer>();
     }
 }
