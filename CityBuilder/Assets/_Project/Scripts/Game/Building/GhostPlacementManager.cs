@@ -2,6 +2,7 @@
 using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Spawnables.Scene;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -16,13 +17,14 @@ namespace CityBuilder.Game.Building
 
         private RaycastHit _hit;
         private HouseLivingArea[] _livingHouses;
+        private bool _isTempBlocked;
 
         private void Awake()
         {
             _mainCamera = UnityEngine.Camera.main;
         }
 
-        public void SetCurrentBuilding(BuildingSpawnable building)
+        public async void SetCurrentBuilding(BuildingSpawnable building)
         {
             if (_currentBuilding != null)
                 Destroy(_currentBuilding.gameObject);
@@ -30,6 +32,10 @@ namespace CityBuilder.Game.Building
             _currentBuilding = building;
             _currentBuilding.ShowRadius();
             _currentBuilding.SetCollidersActivation(false);
+
+            _isTempBlocked = true;
+            await UniTask.Delay(200);
+            _isTempBlocked = false;
         }
 
         private void Update()
@@ -39,6 +45,7 @@ namespace CityBuilder.Game.Building
                 MoveBuilding();
                 var isPlaceSuitable = CheckPlace();
                 _currentBuilding.UpdateModelGhostState(true, isPlaceSuitable);
+                
                 if (Input.GetMouseButtonDown(0) && isPlaceSuitable) PlaceBuilding();
 
                 if (Input.GetKeyDown(KeyCode.Escape))
@@ -73,7 +80,7 @@ namespace CityBuilder.Game.Building
             bool houseIsNear = _currentBuilding.ID == 0 ||
                                _livingHouses.Any(x => x.IsSuitablePlace(_currentBuilding.transform));
 
-            return houseIsNear && enoughScore && enoughSpaceAndIsOnMap;
+            return houseIsNear && enoughScore && enoughSpaceAndIsOnMap & !_isTempBlocked;
         }
 
         private void PlaceBuilding()

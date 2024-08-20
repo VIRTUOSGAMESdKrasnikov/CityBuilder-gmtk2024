@@ -30,7 +30,6 @@ namespace CityBuilder.Spawnables.Scene
 
         public override async UniTask<bool> Spawn(int id)
         {
-            Debug.LogError("spawned house");
             _onPlaceParticles.gameObject.SetActive(false);
             ID = id;
             COLLECTABLE_ID = ID;
