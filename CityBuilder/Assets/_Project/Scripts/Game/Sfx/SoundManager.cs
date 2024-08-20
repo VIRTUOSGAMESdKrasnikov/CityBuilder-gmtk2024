@@ -35,13 +35,19 @@ namespace CityBuilder.Game.Sfx
             EventBus<MouseOverCardEvent>.Subscribe(_mouseOverCardEvent);
             EventBus<MouseLeftCardEvent>.Subscribe(_mouseLeftCardEvent);
             EventBus<LeftBuildingMode>.Subscribe(_leftBuildingModeEvent);
+
+            StepManager.Stepped += PlayStepSound;
         }
+
+
 
         public void Dispose()
         {
             EventBus<MouseOverCardEvent>.Unsubscribe(_mouseOverCardEvent);
             EventBus<MouseLeftCardEvent>.Unsubscribe(_mouseLeftCardEvent);
             EventBus<LeftBuildingMode>.Unsubscribe(_leftBuildingModeEvent);
+            
+            StepManager.Stepped -= PlayStepSound;
         }
 
         private void PlayMouseOverCardSound()
@@ -64,6 +70,14 @@ namespace CityBuilder.Game.Sfx
         {
             var availableSlot = GetAvailableSlot();
             availableSlot.clip = _runtimeDataProvider.UiSoundsStorage.BuildingPlacedSounds.Random();
+
+            availableSlot.Play();
+        }
+        
+        private void PlayStepSound()
+        {
+            var availableSlot = GetAvailableSlot();
+            availableSlot.clip = _runtimeDataProvider.UiSoundsStorage.StepSounds.Random();
 
             availableSlot.Play();
         }

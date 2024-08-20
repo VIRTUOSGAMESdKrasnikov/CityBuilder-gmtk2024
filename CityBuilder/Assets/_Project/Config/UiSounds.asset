@@ -19,3 +19,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e51c372db0eb9de4fa8c2063893596d7, type: 3}
   <BuildingPlacedSounds>k__BackingField:
   - {fileID: 8300000, guid: 04cece4e78f7e7b4a8fc12d57de61304, type: 3}
+  <StepSounds>k__BackingField:
+  - {fileID: 8300000, guid: f3d6ba4ea98972a41a68bb08fda44f34, type: 3}
