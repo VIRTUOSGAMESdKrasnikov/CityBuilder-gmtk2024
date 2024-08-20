@@ -19,9 +19,9 @@ MonoBehaviour:
     <ScorePerStepNeeded>k__BackingField: 0
   - <ID>k__BackingField: 1
     <AvailableOnStart>k__BackingField: 1
-    <ScoreCost>k__BackingField: 10
+    <ScoreCost>k__BackingField: 5
     <ScorePerStepNeeded>k__BackingField: 0
   - <ID>k__BackingField: 2
     <AvailableOnStart>k__BackingField: 0
-    <ScoreCost>k__BackingField: 20
-    <ScorePerStepNeeded>k__BackingField: 5
+    <ScoreCost>k__BackingField: 15
+    <ScorePerStepNeeded>k__BackingField: 15

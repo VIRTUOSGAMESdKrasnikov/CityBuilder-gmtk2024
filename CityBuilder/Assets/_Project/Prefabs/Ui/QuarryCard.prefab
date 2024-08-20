@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3354557461683668565, guid: 0826c31d700141e499c883bf88da6e7a, type: 3}
       propertyPath: m_text
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3655758716217891443, guid: 0826c31d700141e499c883bf88da6e7a, type: 3}
       propertyPath: m_text
@@ -140,9 +140,21 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 13.96
       objectReference: {fileID: 0}
+    - target: {fileID: 7754874046643828167, guid: 0826c31d700141e499c883bf88da6e7a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7970044720484972290, guid: 0826c31d700141e499c883bf88da6e7a, type: 3}
       propertyPath: m_text
-      value: "+5 per step \nto unlock"
+      value: "+15 per step \nto unlock"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970044720484972290, guid: 0826c31d700141e499c883bf88da6e7a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -829390960025577388, guid: bc513df52ab04b74fb6f254141db030c, type: 2}
+    - target: {fileID: 7970044720484972290, guid: 0826c31d700141e499c883bf88da6e7a, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8858986993679503556, guid: 0826c31d700141e499c883bf88da6e7a, type: 3}
       propertyPath: m_AnchorMax.y
