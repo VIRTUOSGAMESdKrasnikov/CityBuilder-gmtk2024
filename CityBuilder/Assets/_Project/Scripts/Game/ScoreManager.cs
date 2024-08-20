@@ -23,6 +23,8 @@ namespace CityBuilder.Game
             _placedBuildingEvent = builder.WithAction(OnPlacedBuilding).Build();
             EventBus<PlacedBuildingEvent>.Subscribe(_placedBuildingEvent);
 
+            Score = 0;
+            ScorePerStep = 0;
             AddScore(_runtimeDataProvider.RulesStorage.StartScore);
             StepManager.Stepped += OnStepped;
         }

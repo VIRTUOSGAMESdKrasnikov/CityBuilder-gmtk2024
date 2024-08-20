@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MouseOverCardSounds>k__BackingField:
   - {fileID: 8300000, guid: f0355f1ca2d5b2d44a65dd9537c11cda, type: 3}
-  - {fileID: 8300000, guid: d877525338868c04da9bfc9d9e69bc42, type: 3}
+  - {fileID: 8300000, guid: 4397355a6a111744dbc109d98fd3ca06, type: 3}
   <MouseLeftCardSounds>k__BackingField:
-  - {fileID: 8300000, guid: e51c372db0eb9de4fa8c2063893596d7, type: 3}
+  - {fileID: 8300000, guid: 855683be3d5f8ff499c542163d912ad4, type: 3}
   <BuildingPlacedSounds>k__BackingField:
   - {fileID: 8300000, guid: 04cece4e78f7e7b4a8fc12d57de61304, type: 3}
   <StepSounds>k__BackingField:

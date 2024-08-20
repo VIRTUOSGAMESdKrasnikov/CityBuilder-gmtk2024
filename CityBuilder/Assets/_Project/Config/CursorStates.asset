@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: CursorStates
   m_EditorClassIdentifier: 
   <DefaultCursor>k__BackingField:
-    <Cursor>k__BackingField: {fileID: 2800000, guid: 73854309c20dfe3408e8e67e3ceb7805, type: 3}
+    <Cursor>k__BackingField: {fileID: 0}
     <Hotspot>k__BackingField: {x: 0.1, y: 0}
   <CardHoveredCursor>k__BackingField:
-    <Cursor>k__BackingField: {fileID: 2800000, guid: ebe58f692e837484c98d8d8183ddb797, type: 3}
+    <Cursor>k__BackingField: {fileID: 0}
+    <Hotspot>k__BackingField: {x: 0, y: 0}
+  <MovingBuildingCursor>k__BackingField:
+    <Cursor>k__BackingField: {fileID: 0}
     <Hotspot>k__BackingField: {x: 0, y: 0}
