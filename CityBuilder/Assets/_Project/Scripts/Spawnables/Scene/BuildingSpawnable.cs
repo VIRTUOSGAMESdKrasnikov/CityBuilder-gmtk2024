@@ -28,14 +28,18 @@ namespace CityBuilder.Spawnables.Scene
 
         public override async UniTask<bool> Spawn(int id)
         {
+            Debug.LogError("spawned house");
             _onPlaceParticles.gameObject.SetActive(false);
 
             if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
             {
-                var modelInstantiateProcess = InstantiateAsync(model.Spawnables.Random(), transform);
+                Debug.LogError("got model data");
+                var modelInstantiateProcess = InstantiateAsync(model.Spawnables.FirstOrDefault(), transform);
+                Debug.LogError("instantiating model");
                 await modelInstantiateProcess;
 
                 _model = modelInstantiateProcess.Result.FirstOrDefault() as BuildingModelSpawnable;
+                Debug.LogError("got model");
             }
             else
             {
