@@ -25,11 +25,14 @@ namespace CityBuilder.Spawnables.Scene
 
         private BuildingModelSpawnable _model;
 
+        public int ID { get; private set; }
+
 
         public override async UniTask<bool> Spawn(int id)
         {
             _onPlaceParticles.gameObject.SetActive(false);
-
+            ID = id;
+            
             if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
             {
                 var modelInstantiateProcess = InstantiateAsync(model.Spawnables.Random(), transform);

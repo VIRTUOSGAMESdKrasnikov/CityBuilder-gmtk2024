@@ -6,5 +6,6 @@ namespace CityBuilder.DataStorage
     public class GameRulesStorage : ScriptableObject
     {
         [field: SerializeField] public float StepDurationInSeconds { get; private set; } = 5f;
+        [field: SerializeField] public int StartScore { get; private set; } = 10;
     }
 }

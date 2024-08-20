@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GameRulesStorage
   m_EditorClassIdentifier: 
   <StepDurationInSeconds>k__BackingField: 5
+  <StartScore>k__BackingField: 15

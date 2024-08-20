@@ -11,14 +11,15 @@ namespace CityBuilder.Game.Deck
     public class PlayerDeck
     {
         public event Action AvailableCardsUpdated;
-        
+
         public IEnumerable<int> RosterCards { get; private set; } = Enumerable.Empty<int>();
         public IEnumerable<int> AvailableCards { get; private set; } = Enumerable.Empty<int>();
-     
+
         private BuildingsDataStorage _dataStorage;
-        
+
         private EventBinding<DevPanelIgnoreScore> _ignoreScoreEvent;
-        
+        private EventBinding<ScorePerStepChangedEvent> _scorePerStepChangedEvent;
+
         public PlayerDeck(BuildingsDataStorage dataStorage, IEnumerable<int> inGameRosterCardsIds)
         {
             _dataStorage = dataStorage;
@@ -27,18 +28,17 @@ namespace CityBuilder.Game.Deck
             foreach (int id in inGameRosterCardsIds)
             {
                 if (_dataStorage.TryGetItem(id, out var item))
-                {
                     if (item.AvailableOnStart)
-                    {
                         AvailableCards = AvailableCards.Append(item.ID);
-                    }
-                }
             }
-            
+
             var builder = new EventBinding<DevPanelIgnoreScore>.Builder();
             _ignoreScoreEvent = builder.WithAction(UnlockAllCards).Build();
-
             EventBus<DevPanelIgnoreScore>.Subscribe(_ignoreScoreEvent);
+
+            _scorePerStepChangedEvent = new EventBinding<ScorePerStepChangedEvent>.Builder()
+                .WithAction(OnScorePerStepChanged).Build();
+            EventBus<ScorePerStepChangedEvent>.Subscribe(_scorePerStepChangedEvent);
         }
 
         public void UnlockAllCards(DevPanelIgnoreScore @event)
@@ -50,30 +50,26 @@ namespace CityBuilder.Game.Deck
             else
             {
                 AvailableCards = Enumerable.Empty<int>();
-                
+
                 foreach (int id in RosterCards)
-                {
                     if (_dataStorage.TryGetItem(id, out var item))
-                    {
                         if (item.AvailableOnStart)
-                        {
                             AvailableCards = AvailableCards.Append(item.ID);
-                        }
-                    }
-                }
             }
-            
+
             AvailableCardsUpdated?.Invoke();
         }
-        
-        // todo here catch event from score manager
-        public void OnScorePerStepUpdated()
+
+        private void OnScorePerStepChanged(ScorePerStepChangedEvent obj)
         {
-            // take score from event
-            // take Roster Cards id
-            // check roster score id from data storage
-            // update available cards
-            // if updated -- send event
+            foreach (int id in RosterCards)
+            {
+                if (_dataStorage.TryGetItem(id, out var item))
+                    if (item.ScorePerStepNeeded <= obj.CurrentScorePerStep)
+                        AvailableCards = AvailableCards.Append(item.ID);
+            }
+
+            AvailableCardsUpdated?.Invoke();
         }
     }
 }

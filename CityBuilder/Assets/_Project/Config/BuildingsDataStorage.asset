@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de043a9a4d641a380d6c0d20d103745, type: 3}
   m_Name: BuildingsDataStorage
   m_EditorClassIdentifier: 
-  _storageables:
+  storageables:
   - <ID>k__BackingField: 0
     <AvailableOnStart>k__BackingField: 1
+    <ScoreCost>k__BackingField: 5
     <ScorePerStepNeeded>k__BackingField: 0
   - <ID>k__BackingField: 1
     <AvailableOnStart>k__BackingField: 1
+    <ScoreCost>k__BackingField: 10
     <ScorePerStepNeeded>k__BackingField: 0
   - <ID>k__BackingField: 2
     <AvailableOnStart>k__BackingField: 0
-    <ScorePerStepNeeded>k__BackingField: 20
+    <ScoreCost>k__BackingField: 20
+    <ScorePerStepNeeded>k__BackingField: 5
