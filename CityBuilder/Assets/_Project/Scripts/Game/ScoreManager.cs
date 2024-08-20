@@ -7,8 +7,8 @@ namespace CityBuilder.Game
 {
     public class ScoreManager : MonoBehaviour
     {
-        public int Score { get; private set; }
-        public int ScorePerStep { get; private set; }
+        public static int Score { get; private set; }
+        public static int ScorePerStep { get; private set; }
 
         private EventBinding<PlacedBuildingEvent> _placedBuildingEvent;
 
@@ -20,7 +20,6 @@ namespace CityBuilder.Game
 
             StepManager.Stepped += OnStepped;
         }
-
 
         private void OnDestroy()
         {
