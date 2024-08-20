@@ -1,5 +1,7 @@
 ﻿using CityBuilder.Interfaces;
+using DG.Tweening;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 
 namespace CityBuilder.Game.Collectables
@@ -13,9 +15,27 @@ namespace CityBuilder.Game.Collectables
         [SerializeField] private Material _defaultMaterial;
         [SerializeField] private Material _takenBuildingModeMaterial;
         [SerializeField] private Material _availableBuildingModeMaterial;
+        [SerializeField] private TextMeshPro _contextTooltip;
 
+        private bool _isTaken;
+        
         public int Id => _id;
-        public bool IsTaken { get; set; }
+
+        public bool IsTaken
+        {
+            get => _isTaken;
+            set
+            {
+                _isTaken = value;
+                if (value)
+                {
+                    _contextTooltip.gameObject.SetActive(true);
+                    _contextTooltip.transform.DOMoveY(transform.position.y + 2f, 2f);
+                    _contextTooltip.DOColor(Color.clear, 2f);
+                }   
+            }
+        }
+
         public int ScorePerStep => _scorePerStep;
 
         public void ChangeView(bool isInBuildingMode)
