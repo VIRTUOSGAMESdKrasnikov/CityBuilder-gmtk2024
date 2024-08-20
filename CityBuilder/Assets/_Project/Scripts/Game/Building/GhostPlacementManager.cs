@@ -23,8 +23,6 @@ namespace CityBuilder.Game.Building
 
         public void SetCurrentBuilding(BuildingSpawnable building)
         {
-            Debug.LogError("set building to ghost manager");
-
             if (_currentBuilding != null)
                 Destroy(_currentBuilding.gameObject);
 
