@@ -21,6 +21,16 @@ namespace CityBuilder.Core.EventBuses.Events
             CurrentScore = currentScore;
         }
     }
+    
+    public class ScorePerStepChangedEvent : IEvent
+    {
+        public int CurrentScorePerStep { get; private set; }
+
+        public ScorePerStepChangedEvent(int currentScorePerStep)
+        {
+            CurrentScorePerStep = currentScorePerStep;
+        }
+    }
 
     public class MouseOverCardEvent : IEvent
     {

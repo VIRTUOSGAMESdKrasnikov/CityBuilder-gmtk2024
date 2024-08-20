@@ -45,6 +45,9 @@ namespace CityBuilder.Game
             if (ScorePerStep <= 0)
                 ScorePerStep = 0;
             
+            var @event = new ScorePerStepChangedEvent(ScorePerStep);
+            EventBus<ScorePerStepChangedEvent>.Publish(@event);
+            
             Debug.Log($"Current score per step: <color=blue> {ScorePerStep} </color>");
         }
 
