@@ -5,7 +5,6 @@ using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Interfaces;
 using CityBuilder.ScoreCalculators;
-using CityBuilder.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -31,16 +30,22 @@ namespace CityBuilder.Spawnables.Scene
 
         public override async UniTask<bool> Spawn(int id)
         {
+            Debug.LogError("spawned house");
             _onPlaceParticles.gameObject.SetActive(false);
             ID = id;
             COLLECTABLE_ID = ID;
             
             if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
             {
-                var modelInstantiateProcess = InstantiateAsync(model.Spawnables.Random(), transform);
+                // somehow webgl cant properly run InstantiateAsync (maybe javascript)
+#if UNITY_WEBGL
+                _model = Instantiate(model.Spawnables.FirstOrDefault(), transform) as BuildingModelSpawnable;
+#else
+                var modelInstantiateProcess = InstantiateAsync(model.Spawnables.FirstOrDefault(), transform);
                 await modelInstantiateProcess;
 
                 _model = modelInstantiateProcess.Result.FirstOrDefault() as BuildingModelSpawnable;
+#endif
             }
             else
             {

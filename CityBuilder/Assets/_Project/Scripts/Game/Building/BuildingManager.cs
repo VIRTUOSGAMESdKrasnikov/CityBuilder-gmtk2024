@@ -43,9 +43,12 @@ namespace CityBuilder.Game.Building
 
         public async void SpawnBuilding(int id)
         {
+            Debug.LogError("started building spawning");
             var spawnedBuilding = await _spawner.Spawn(new[] { id });
+            Debug.LogError("finished building spawning");
+            Debug.LogError("setting building to ghost manager");
             _placementManager.SetCurrentBuilding(spawnedBuilding.FirstOrDefault());
-
+            Debug.LogError("done");
             EventBus<EnteredBuildingMode>.Publish(new EnteredBuildingMode(spawnedBuilding.FirstOrDefault()));
         }
 
