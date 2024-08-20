@@ -4,7 +4,6 @@ using CityBuilder.Core.EventBuses;
 using CityBuilder.Core.EventBuses.Events;
 using CityBuilder.Interfaces;
 using CityBuilder.ScoreCalculators;
-using CityBuilder.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -33,13 +32,15 @@ namespace CityBuilder.Spawnables.Scene
 
             if (_runtimeDataProvider.ModelStorage.TryGetItem(id, out var model))
             {
-                Debug.LogError("got model data");
+                // somehow webgl cant properly run InstantiateAsync (maybe javascript)
+#if UNITY_WEBGL
+                _model = Instantiate(model.Spawnables.FirstOrDefault(), transform) as BuildingModelSpawnable;
+#else
                 var modelInstantiateProcess = InstantiateAsync(model.Spawnables.FirstOrDefault(), transform);
-                Debug.LogError("instantiating model");
                 await modelInstantiateProcess;
 
                 _model = modelInstantiateProcess.Result.FirstOrDefault() as BuildingModelSpawnable;
-                Debug.LogError("got model");
+#endif
             }
             else
             {
